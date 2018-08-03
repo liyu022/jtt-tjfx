@@ -31,6 +31,16 @@ export default {
   mounted () {
     this.loadData()
   },
+  watch: {
+    params: {
+      handler(nV, oV) {
+        console.log("params-"+ nV)
+        console.log("params-"+ this.params)
+        this.loadData()
+      },
+      deep: true
+    }
+  },
   methods: {
     /**
      * 加载图表数据

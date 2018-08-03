@@ -118,7 +118,7 @@
       </el-card>
     </el-col>
     <el-col :span="19">
-      <el-card>
+      <el-card :style="'height:'+ height +'px;'" body-style="padding:0px">
         <router-view :params="params"></router-view>
       </el-card>
     </el-col>
