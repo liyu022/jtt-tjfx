@@ -9,7 +9,12 @@ export default {
     return {
       title: "全省高速公路交通量分析"
     }
-  }
+  },
+  props: {
+    carType: '0',
+    interval: 'y',
+    date: ''
+  },
 }
 </script>
 
