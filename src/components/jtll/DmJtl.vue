@@ -1,7 +1,6 @@
 <template>
 <div id="chart" :style="'height:'+ height +'px;'">
 </div>
-
 </template>
 
 <script>
@@ -53,7 +52,7 @@ export default {
         debugger
         that.chart.setOption({
           title: {
-            text: "全省高速公路交通量分析",
+            text: "高速公路断面交通量统计",
               textStyle: {
               color: "#436EEE",
                 fontSize: 17

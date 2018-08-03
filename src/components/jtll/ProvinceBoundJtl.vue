@@ -7,7 +7,7 @@ export default {
   name: "",
   data () {
     return {
-      title: "省界高速公路交通量统计"
+      title: "高速公路断面交通量统计"
     }
   }
 }
