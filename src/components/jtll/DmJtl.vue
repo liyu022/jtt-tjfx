@@ -50,6 +50,7 @@ export default {
         carType: this.params.carType,
         interval: this.params.interval
       }, {}, function (data, msg) {
+        debugger
         that.chart.setOption({
           title: {
             text: "全省高速公路交通量分析",
