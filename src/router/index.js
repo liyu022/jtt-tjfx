@@ -6,6 +6,9 @@ import ProvinceJtl from '@/components/jtll/ProvinceJtl'
 import CityJtl from '@/components/jtll/CityJtl'
 import DmJtl from '@/components/jtll/DmJtl'
 import PbJtl from '@/components/jtll/ProvinceBoundJtl'
+import Hyfx from '@/components/Hyfx'
+import MainPeriod from '@/components/hyfx/MaintainPeriod'
+import NetorkEffect from '@/components/hyfx/NetWorkEffect'
 
 Vue.use(Router)
 
@@ -40,6 +43,23 @@ export default new Router({
           path: '/jtll/pbJtl',
           component: PbJtl
         }
+      ]
+    },
+    {
+      path: '/hyfx',
+      name: 'Hyfx',
+      component: Hyfx,
+      children: [
+        {
+          path: '/hyfx/mainPeriod',
+          component: MainPeriod
+        },
+        {
+          path: '/hyfx/networkEffect',
+          component: NetorkEffect
+        }
+
+
       ]
     }
   ]
