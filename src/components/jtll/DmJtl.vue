@@ -17,8 +17,14 @@ export default {
     params: {
       carType: null,
       interval: null,
-      date: null,
+      dateYear: '',
+      dateMonth: '',
       direction: null
+    }
+  },
+  computed: {
+    date: function () {
+      return this.params.interval === 'y'? this.params.dateYear:this.params.dateMonth
     }
   },
   created () {
@@ -31,8 +37,6 @@ export default {
   watch: {
     params: {
       handler(nV, oV) {
-        console.log("params-"+ nV)
-        console.log("params-"+ this.params)
         this.loadData()
       },
       deep: true
@@ -44,8 +48,9 @@ export default {
     },
     loadData () {
       var that = this
+      console.log("date-"+ this.date)
       this.$http.getData('http://10.228.2.135:8813/trffic-flow/statTrafficSection', {
-        date: this.params.date,
+        date: this.date,
         carType: this.params.carType,
         interval: this.params.interval
       }, {}, function (data, msg) {

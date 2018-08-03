@@ -22,9 +22,9 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="统计时间">
-                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                 </el-date-picker>
-                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
                 </el-date-picker>
               </el-form-item>
             </el-form>
@@ -48,9 +48,9 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="统计时间">
-                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                 </el-date-picker>
-                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
                 </el-date-picker>
               </el-form-item>
             </el-form>
@@ -74,9 +74,9 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="统计时间">
-                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                 </el-date-picker>
-                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
                 </el-date-picker>
               </el-form-item>
             </el-form>
@@ -107,9 +107,9 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="统计时间">
-                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-if="provinceInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                 </el-date-picker>
-                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.date">
+                <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
                 </el-date-picker>
               </el-form-item>
             </el-form>
@@ -135,7 +135,8 @@ export default {
       params: {
         carType: '0',
         interval: 'y',
-        date: '',
+        dateYear: '',
+        dateMonth: '',
         direction: 'a'
       }
     }
@@ -147,13 +148,18 @@ export default {
   },
   created () {
     this.setSize()
-    this.params.date = new Date().getFullYear().toString()
+    this.init()
     this.changeItem(this.activeItem)
   },
   mounted () {
 
   },
   methods: {
+    init () {
+      this.params.dateYear = new Date().getFullYear().toString()
+      const month = new Date().getMonth() + 1
+      this.params.dateMonth = new Date().getFullYear().toString() + (month < 10? '0' + month.toString():month.toString())
+    },
     changeItem (item) {
       if (item != null) {
         this.toRouter(item)

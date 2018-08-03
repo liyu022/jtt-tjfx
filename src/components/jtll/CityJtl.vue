@@ -35,7 +35,7 @@ export default {
     params: {
       handler(nV, oV) {
         console.log("params-"+ nV)
-        console.log("params-"+ this.params)
+        console.log("params-"+ this.params.date)
         this.loadData()
       },
       deep: true
