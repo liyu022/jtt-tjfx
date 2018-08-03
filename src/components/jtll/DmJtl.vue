@@ -1,5 +1,7 @@
 <template>
-<div id="chart"></div>
+<div id="chart" :style="'height:'+ height +'px;'">
+</div>
+
 </template>
 
 <script>
@@ -7,14 +9,116 @@ export default {
   name: "Dmjtl",
   data () {
     return {
-      title: "高速公路断面交通量统计"
+      title: "高速公路断面交通量统计",
+      chart: null,
+      height: 100,
     }
   },
   props: {
-    carType: '0',
-    interval: 'y',
-    date: ''
+    params: {
+      carType: null,
+      interval: null,
+      date: null,
+      direction: null
+    }
   },
+  created () {
+    this.setSize()
+  },
+  mounted () {
+    this.createChart()
+    this.loadData()
+  },
+  watch: {
+    params: {
+      handler(nV, oV) {
+        console.log("params-"+ nV)
+        console.log("params-"+ this.params)
+        this.loadData()
+      },
+      deep: true
+    }
+  },
+  methods: {
+    createChart () {
+      this.chart = echarts.init(document.getElementById("chart"))
+    },
+    loadData () {
+      var that = this
+      this.$http.getData('http://10.228.2.135:8813/trffic-flow/statTrafficSection', {
+        date: this.params.date,
+        carType: this.params.carType,
+        interval: this.params.interval
+      }, {}, function (data, msg) {
+        that.chart.setOption({
+          title: {
+            text: "全省高速公路交通量分析",
+              textStyle: {
+              color: "#436EEE",
+                fontSize: 17
+            }
+          },
+          tooltip: {
+            trigger: "axis",
+              axisPointer: {
+              type: 'line'
+            }
+          },
+          legend: {
+            data: ["客车", "货车"]
+          },
+          grid: {
+            left: '3%',
+              right: '3%',
+              bottom: '3%',
+              containLabel: true
+          },
+          //x轴显示
+          xAxis: {
+            data: data.name,
+            splitLine: {
+              show: false
+            }
+          },
+          //y轴显示
+          yAxis: [
+            {
+              type: 'value',
+              name: '车辆',
+              splitLine: {
+                show: false
+              },
+              axisLabel: {
+                formatter: '{value}辆'
+              }
+            }
+          ],
+            series: [
+            {
+              name: "客车",
+              type: "bar",
+              stack: "业务",
+              data: data.kcjtl
+            },
+            {
+              name: "货车",
+              type: "bar",
+              stack: "业务",
+              data: data.hcjtl,
+            }
+          ]
+        })
+      })
+    },
+    /**
+     * 布局计算
+     */
+    setSize () {
+      const clientHeight = document.documentElement.clientHeight
+      this.height = clientHeight - 108
+      console.log('this.height:' + clientHeight)
+    }
+  }
 }
 </script>
 

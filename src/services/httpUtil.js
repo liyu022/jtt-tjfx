@@ -133,7 +133,6 @@ export function postFile (uploadFileUrl, formData, callback) {
  * @param callback
  */
 function backView (response, callback) {
-  debugger
   console.log(response.data)
   if (response != null && response.data.code === 1 && response.data.data != null) {
     console.log('请求成功')
