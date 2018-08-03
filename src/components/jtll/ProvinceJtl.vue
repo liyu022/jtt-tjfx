@@ -1,21 +1,160 @@
 <template>
-<span>{{title }}</span>
+  <div id="chart" :style="'height:'+ height +'px;'">
+  </div>
 </template>
 
 <script>
-export default {
-  name: "",
-  data () {
-    return {
-      title: "全省高速公路交通量分析"
+  export default {
+    name: "",
+    data() {
+      return {
+        title: "全省高速公路交通量分析",
+        chart: null,
+        height: 100
+      }
+    },
+    props: {
+      params: {
+        carType: null,
+        interval: null,
+        dateYear: '',
+        dateMonth: '',
+        direction: null
+      }
+    },
+    computed: {
+      date: function () {
+        return this.params.interval === 'y'? this.params.dateYear:this.params.dateMonth
+      }
+    },
+    created () {
+      this.setSize()
+    },
+    mounted () {
+      this.createChart()
+      this.loadData()
+    },
+    watch: {
+      params: {
+        handler(nV, oV) {
+          console.log("params-"+ nV)
+          console.log("params-"+ this.params)
+          this.loadData()
+        },
+        deep: true
+      }
+    },
+    methods: {
+      createChart () {
+        this.chart = echarts.init(document.getElementById("chart"))
+      },
+      loadData () {
+        // debugger
+        var that = this
+        this.$http.getData('http://192.168.1.113:8813/trffic-flow/statProvinceHighWayBar', {
+          date: this.date,
+          carType: this.params.carType,
+          interval: this.params.interval
+        }, {}, function (data, msg) {
+          console.log(data)
+          var option = {
+            /* title: {
+                 text: "全省高速公路交通量分析",
+                 textStyle: {
+                     color: "#436EEE",
+                     fontSize: 17
+                 }
+             },*/
+            tooltip: {
+              trigger: "axis",
+              axisPointer: {
+                type: 'line'
+              }
+            },
+            legend: {
+              data: ["客车", "货车", "环比"]
+            },
+            toolbox: {
+              show: true,
+              feature: {
+                dataView: {show: true},
+                saveAsImage: {
+                  show: true,
+                  excludeComponents: ['toolbox'],
+                  pixelRatio: 2
+
+                }
+              }
+            },
+            grid: {
+              left: '3%',
+              right: '3%',
+              bottom: '3%',
+              containLabel: true
+            },
+            //x轴显示
+            xAxis: {
+              data: data.date,
+              splitLine: {
+                show: false
+              }
+            },
+            //y轴显示
+            yAxis: [
+              {
+                type: 'value',
+                name: '交通量',
+                splitLine: {
+                  show: false
+                },
+                axisLabel: {
+                  formatter: '{value}辆'
+                }
+              },
+              {
+                type: 'value',
+                splitLine: {
+                  show: false
+                },
+                axisLabel: {
+                  formatter: '{value}%'
+                }
+              }
+            ],
+            series: [
+              {
+                name: "客车",
+                type: "bar",
+                stack: "业务",
+                data: data.kcjtl,
+              },
+              {
+                name: "货车",
+                type: "bar",
+                stack: "业务",
+                data: data.hcjtl,
+              },
+              {
+                name: '环比',
+                type: 'line',
+                yAxisIndex: 1,
+                data: data.ringrate
+              }
+            ]
+          };
+          that.chart.setOption(option)
+        })
+      },
+      /**
+       * 布局计算
+       */
+      setSize () {
+        const clientHeight = document.documentElement.clientHeight
+        this.height = clientHeight - 108
+        console.log('this.height:' + clientHeight)
+      }
     }
-  },
-  props: {
-    carType: '0',
-    interval: 'y',
-    date: ''
-  },
-}
+  }
 </script>
 
 <style scoped>
