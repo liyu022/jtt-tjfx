@@ -57,6 +57,16 @@
           interval: this.params.interval
         }, {}, function (data, msg) {
           console.log(data)
+          //万辆单位处理
+          debugger
+          let hcjtl = []
+          let kcjtl = []
+          data.hcjtl.forEach(function(item,index){
+            hcjtl.push((item/10000).toFixed(2))
+          })
+          data.kcjtl.forEach(function(item,index){
+            kcjtl.push((item/10000).toFixed(2))
+          })
           var option = {
             /* title: {
                  text: "全省高速公路交通量分析",
@@ -108,7 +118,7 @@
                   show: false
                 },
                 axisLabel: {
-                  formatter: '{value}辆'
+                  formatter: '{value} 万辆'
                 }
               },
               {
@@ -126,13 +136,13 @@
                 name: "客车",
                 type: "bar",
                 stack: "业务",
-                data: data.kcjtl,
+                data: kcjtl,
               },
               {
                 name: "货车",
                 type: "bar",
                 stack: "业务",
-                data: data.hcjtl,
+                data: hcjtl,
               },
               {
                 name: '环比',

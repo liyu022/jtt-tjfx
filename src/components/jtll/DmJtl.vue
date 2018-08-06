@@ -54,7 +54,14 @@ export default {
         carType: this.params.carType,
         interval: this.params.interval
       }, {}, function (data, msg) {
-        debugger
+        let hcjtl = []
+        let kcjtl = []
+        data.hcjtl.forEach(function(item,index){
+          hcjtl.push((item/10000).toFixed(2))
+        })
+        data.kcjtl.forEach(function(item,index){
+          kcjtl.push((item/10000).toFixed(2))
+        })
         that.chart.setOption({
           title: {
             text: "高速公路断面交通量统计",
@@ -94,7 +101,7 @@ export default {
                 show: false
               },
               axisLabel: {
-                formatter: '{value}辆'
+                formatter: '{value} 万辆'
               }
             }
           ],
@@ -103,13 +110,13 @@ export default {
               name: "客车",
               type: "bar",
               stack: "业务",
-              data: data.kcjtl
+              data: kcjtl
             },
             {
               name: "货车",
               type: "bar",
               stack: "业务",
-              data: data.hcjtl,
+              data: hcjtl,
             }
           ]
         })

@@ -64,7 +64,7 @@
             },
             calculable : true,
             legend: {
-              data:['里程','次数']
+              data:['养护里程','养护起数']
             },
             xAxis : [
               {
@@ -82,20 +82,20 @@
               },
               {
                 type : 'value',
-                name : '次数',
+                name : '起数',
                 axisLabel : {
-                  formatter: '{value} 次'
+                  formatter: '{value} 起'
                 }
               }
             ],
             series : [
               {
-                name:'里程',
+                name:'养护里程',
                 type:'bar',
                 data:data.miles
               },
               {
-                name:'次数',
+                name: '养护起数',
                 type:'line',
                 yAxisIndex: 1,
                 data: data.times
