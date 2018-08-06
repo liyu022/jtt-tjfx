@@ -130,7 +130,7 @@ export default {
   name: "Jtll",
   data () {
     return {
-      activeItem: "/jtll/dmJtl",
+      activeItem: "/jtll/provinceJtl",
       height: 100,
       params: {
         carType: '0',
