@@ -54,7 +54,7 @@
   },
   methods: {
     initMap () {
-      debugger
+      // debugger
       let mapParames = config.mapParames.getCurrent()
       this.Map = new HMap({
         target: 'map',

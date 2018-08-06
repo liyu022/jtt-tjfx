@@ -75,6 +75,9 @@ var config = {
       },
       provinceJtl: {
         chartData: '/trffic-flow/statProvinceHighWayBar'
+      },
+      provinceBoundJtl: {
+        chartData: '/trffic-flow/statBoundTrafficFlow'
       }
     },
     hyfx: {

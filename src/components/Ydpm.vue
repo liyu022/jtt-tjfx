@@ -71,7 +71,7 @@ export default {
      * @param oldRow
      */
     listRowClick (currentRow, oldRow) {
-      debugger
+      // debugger
       const lxbm = (currentRow && currentRow.lxbm)?currentRow.lxbm:''
       this.loadLine(currentRow.lxbm)
     },
@@ -140,7 +140,7 @@ export default {
     loadLine (lxbm) {
       var that = this
       this.$http.getData(config.service.ydpm.lineData, {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
-        debugger
+        // debugger
         that.lineData = data
       })
     },
