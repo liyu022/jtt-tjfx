@@ -49,7 +49,7 @@ export default {
     loadData () {
       var that = this
       console.log("date-"+ this.date)
-      this.$http.getData('http://10.228.2.135:8813/trffic-flow/statTrafficSection', {
+      this.$http.getData(config.baseUrl + config.service.jtll.dmJtl.chartData,{
         date: this.date,
         carType: this.params.carType,
         interval: this.params.interval

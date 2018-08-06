@@ -51,7 +51,7 @@ export default {
      */
     loadData () {
       var that = this
-      this.$http.getData('http://10.228.2.135:8813/trffic-flow/statCityHighWayBar', {
+      this.$http.getData(config.baseUrl + config.service.jtll.cityJtl.chartData, {
         date: this.date,
         direction: this.params.direction,
         interval: this.params.interval
@@ -158,7 +158,7 @@ export default {
      */
     loadLine (lxbm) {
       var that = this
-      this.$http.getData('http://10.228.2.135:8810/road/findByLxdm', {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
+      this.$http.getData(config.service.jtll.cityJtl.lineData, {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
         debugger
         that.lineData = data
       })

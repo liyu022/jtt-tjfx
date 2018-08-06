@@ -89,7 +89,7 @@ export default {
      */
     loadListData () {
       var that = this
-      this.$http.getData('http://10.228.2.135:8813/ydpm/getYdList', {}, {}, function (data, msg) {
+      this.$http.getData(config.baseUrl + config.service.ydpm.ydList, {}, {}, function (data, msg) {
         that.ydListData = data
       })
     },
@@ -98,7 +98,7 @@ export default {
      */
     loadHeatData () {
       var that = this
-      this.$http.getData('http://10.228.2.135:8813/ydpm/getYdHeatData', {}, {}, function (data, msg) {
+      this.$http.getData(config.baseUrl + config.service.ydpm.ydHeatData, {}, {}, function (data, msg) {
         const option = {
           title: {
             text: '',
@@ -139,7 +139,7 @@ export default {
      */
     loadLine (lxbm) {
       var that = this
-      this.$http.getData('http://10.228.2.135:8810/road/findByLxdm', {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
+      this.$http.getData(config.service.ydpm.lineData, {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
         debugger
         that.lineData = data
       })

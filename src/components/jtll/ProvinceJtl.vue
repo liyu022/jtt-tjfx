@@ -51,7 +51,7 @@
       loadData () {
         // debugger
         var that = this
-        this.$http.getData('http://192.168.1.113:8813/trffic-flow/statProvinceHighWayBar', {
+        this.$http.getData(config.baseUrl + config.service.jtll.provinceJtl.chartData, {
           date: this.date,
           carType: this.params.carType,
           interval: this.params.interval

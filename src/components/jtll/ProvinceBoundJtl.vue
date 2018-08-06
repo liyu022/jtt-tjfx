@@ -12,7 +12,6 @@ export default {
   }
 }
 </script>
-MaintainPeriod
 <style scoped>
 
 </style>
