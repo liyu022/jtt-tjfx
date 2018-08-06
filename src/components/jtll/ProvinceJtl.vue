@@ -58,7 +58,6 @@
         }, {}, function (data, msg) {
           console.log(data)
           //万辆单位处理
-          debugger
           let hcjtl = []
           let kcjtl = []
           data.hcjtl.forEach(function(item,index){

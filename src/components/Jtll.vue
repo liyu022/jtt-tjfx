@@ -152,8 +152,15 @@ export default {
     this.changeItem(this.activeItem)
   },
   mounted () {
-
+    console.log("load jtll.....")
   },
+  /*
+  watch: {
+    activeDate: function (nV, oV) {
+      console.log("activeDate发生了变化：nV" + nV + ",oV" + oV)
+    }
+  },
+  */
   methods: {
     init () {
       this.params.dateYear = new Date().getFullYear().toString()

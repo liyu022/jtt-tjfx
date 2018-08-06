@@ -58,8 +58,6 @@ export default new Router({
           path: '/hyfx/networkEffect',
           component: NetorkEffect
         }
-
-
       ]
     }
   ]

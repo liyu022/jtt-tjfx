@@ -4,7 +4,7 @@
       <el-row type="flex" justify="space-between">
          <el-col :span="6"><div class="title">{{title }}</div></el-col>
          <el-col :span="6">
-           <el-menu default-active="/" router mode="horizontal" background-color="#3B7AB3" text-color="#fff" active-text-color="#ffd04b">
+           <el-menu default-active="/" router mode="horizontal" @select="handleSelect" background-color="#3B7AB3" text-color="#fff" active-text-color="#ffd04b">
              <el-menu-item index="/ydpm"><div class="menu">拥堵排名</div></el-menu-item>
              <el-menu-item index="/jtll"><div class="menu">交通量</div></el-menu-item>
              <el-menu-item index="/hyfx"><div class="menu">行业分析</div></el-menu-item>
@@ -13,7 +13,7 @@
       </el-row>
     </el-header>
     <el-main>
-      <router-view></router-view>
+      <router-view :key="activeDate"></router-view>
     </el-main>
   </el-container>
 </template>
@@ -23,7 +23,14 @@ export default {
   name: 'Home',
   data () {
     return {
-      title: '路网运行监测大数据分析'
+      title: '路网运行监测大数据分析',
+      activeDate: new Date()
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      //<router-view>组件的:key属性，用来在组件复用时也能刷新组件
+      this.activeDate = new Date()
     }
   }
 }
