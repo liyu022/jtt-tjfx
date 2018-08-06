@@ -78,7 +78,9 @@ var config = {
       }
     },
     hyfx: {
-
+      maintainPeriod: {
+        chartData: '/hyfx/statMaintainPeriod'
+      }
     }
   }
 }
