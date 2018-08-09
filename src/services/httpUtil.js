@@ -134,7 +134,7 @@ export function postFile (uploadFileUrl, formData, callback) {
  */
 function backView (response, callback) {
   console.log(response.data)
-  if (response != null && response.data.code === 1 && response.data.data != null) {
+  if (response != null && (response.data.code === 1 || response.data.code === 200) && response.data.data != null) {
     console.log('请求成功')
     if (callback != null) {
       callback(response.data.data, null)

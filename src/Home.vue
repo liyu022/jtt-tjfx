@@ -24,13 +24,13 @@ export default {
   data () {
     return {
       title: '路网运行监测大数据分析',
-      activeDate: new Date()
+      activeDate: new Date().getTime()
     }
   },
   methods: {
     handleSelect (key, keyPath) {
       //<router-view>组件的:key属性，用来在组件复用时也能刷新组件
-      this.activeDate = new Date()
+      this.activeDate = new Date().getTime()
     }
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable */
 var config = {
-  baseUrl: 'http://localhost:8813',
+  baseUrl: 'http://10.228.2.135:8813',
   mapParames: {
     sxLiving: {
       center: [109.19554267784362, 34.957311521091796],
@@ -57,7 +57,7 @@ var config = {
       mapUrl: 'http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}'
     },
     getCurrent: function() {
-      return this.arcgisOnLine
+      return this.sxLiving
     }
   },
   service: {
@@ -83,6 +83,9 @@ var config = {
     hyfx: {
       maintainPeriod: {
         chartData: '/hyfx/statMaintainPeriod'
+      },
+      netWorkEffect: {
+        minChart: 'http://10.228.2.135:8804/lwgl-yxjc/block/chart/mainplan'
       }
     }
   }

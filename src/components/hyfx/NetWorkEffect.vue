@@ -1,13 +1,34 @@
 <template>
-  <span>{{title }}</span>
+  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="lineData"></hd-map>
 </template>
 
 <script>
+  import HdMap from '../common/HdMap.vue'
   export default {
     name: "",
+    components: {
+      HdMap
+    },
     data () {
       return {
-        title: "路网运行影响分析"
+        title: "路网运行影响分析",
+        mapHeight: 500,
+        chartLayer: null,
+        lineData: []
+      }
+    },
+    created () {
+      this.setSize()
+    },
+    methods: {
+      /**
+       * 布局计算
+       */
+      setSize () {
+        const clientHeight = document.documentElement.clientHeight
+        this.tableHeight = clientHeight - 167
+        this.mapHeight = clientHeight - 70
+        console.log('this.mapHeight:' + this.mapHeight)
       }
     }
   }
