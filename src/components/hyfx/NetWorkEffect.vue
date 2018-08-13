@@ -1,5 +1,5 @@
 <template>
-  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="lineData"></hd-map>
+  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="params.lineData"></hd-map>
 </template>
 
 <script>
@@ -16,6 +16,14 @@
         chartLayer: null,
         lineData: []
       }
+    },
+    props: {
+      params: {
+        year: '',
+        closeable: '-1',
+        lineData: null
+      }
+
     },
     created () {
       this.setSize()

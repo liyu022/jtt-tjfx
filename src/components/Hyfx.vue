@@ -46,6 +46,46 @@
                 <div id="minChart">&nbsp;</div>
               </el-col>
             </el-row>
+            <el-row :gutter="5">
+              <el-col :span="24">
+                <el-table :data="minTable" size="small" :max-height="tableHeight" highlight-current-row @current-change="minTabRowClick">
+                  <el-table-column type="expand" width="20" style="padding: 3px">
+                    <template slot-scope="props">
+                      <!--
+                      <ul>
+                        <li v-for="item in props.row.data">
+                          <el-tag>{{item.id}}</el-tag><el-tag>{{item.roadstart}}</el-tag><el-tag>{{item.roadend}}</el-tag>
+                        </li>
+                      </ul>
+                      -->
+                      <el-table
+                        :data="props.row.data" size="mini" border="true" style="width: 100%;">
+                        <el-table-column
+                          prop="roadRangText"
+                          label="桩号范围"
+                          width="150">
+                        </el-table-column>
+                        <!--
+                        <el-table-column
+                          prop="blockMileage"
+                          label="影响里程">
+                        </el-table-column>
+                        -->
+                        <el-table-column
+                          prop="directiontext"
+                          label="方向">
+                        </el-table-column>
+                      </el-table>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="序号" prop="id" width="50" align="center"></el-table-column>
+                  <el-table-column label="路线名称" prop="roadfullname"></el-table-column>
+                  <el-table-column label="影响状态" prop="directiontext" align="center" width="70"></el-table-column>
+                  <el-table-column label="桩号范围" prop="roadrang"></el-table-column>
+
+                </el-table>
+              </el-col>
+            </el-row>
           </el-collapse-item>
         </el-collapse>
       </el-card>
@@ -65,15 +105,18 @@ export default {
     return {
       activeItem: "/hyfx/mainPeriod",
       height: 100,
+      tableHeight: 700,
       params: {
         year: 'y',
-        closeable: '-1'
+        closeable: '-1',
+        lineData:[]
       },
       minChart: {
         chatObj: null,
         yhTimes: 0,                //养护起数
         yhMile: 0                  //养护里程
-      }
+      },
+      minTable: []
     }
   },
   computed: {
@@ -98,6 +141,7 @@ export default {
         this.toRouter(item)
         if(item === '/hyfx/networkEffect'){
           this.loadMinChartData()
+          this.loadMinTableData()
         }
       }
     },
@@ -237,12 +281,44 @@ export default {
         that.minChart.yhMile = data.totalMileage
       })
     },
+    loadMinTableData () {
+      debugger
+      var that = this
+      this.$http.getData(config.service.hyfx.netWorkEffect.minTable, {}, {}, function (data, msg) {
+        /*
+        let yhArr = []
+        let yhlcArr = []
+        data.charts.forEach((val, index) => {
+          yhArr.push(val.amount)
+          yhlcArr.push(val.total)
+        })
+        */
+        let arr = []
+        if(data) {
+          data.forEach((item, index) => {
+            if(item.geometry){
+              arr.push({
+                geometry: item.geometry,
+                geometryType:item.geometryType
+              })
+            }
+          });
+        }
+        that.params.lineData = arr
+        that.minTable = data
+      })
+    },
+    minTabRowClick (currentRow, oldRow) {
+      //debugger;
+      console.log("click："+ currentRow.geometry)
+    },
     /**
      * 布局计算
      */
     setSize () {
       const clientHeight = document.documentElement.clientHeight
       this.height = clientHeight - 68
+      this.tableHeight = this.height - 400
       console.log('this.height:' + this.height)
     }
   }
@@ -301,5 +377,14 @@ export default {
     margin-top: 15px;
     width: 350px;
     height: 200px;
+  }
+
+  .el-table {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .el-table__body .el-table__expanded-cell {
+    padding: 2px 5px;
   }
 </style>

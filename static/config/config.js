@@ -1,6 +1,6 @@
 /* eslint-disable */
 var config = {
-  baseUrl: 'http://10.228.2.135:8813',
+  baseUrl: 'http://localhost:8813',
   mapParames: {
     sxLiving: {
       center: [109.19554267784362, 34.957311521091796],
@@ -85,7 +85,9 @@ var config = {
         chartData: '/hyfx/statMaintainPeriod'
       },
       netWorkEffect: {
-        minChart: 'http://10.228.2.135:8804/lwgl-yxjc/block/chart/mainplan'
+        minChart: 'http://10.228.2.135:8804/lwgl-yxjc/block/chart/mainplan',
+        minTable: 'http://localhost:8813/hyfx/NetWorkEffect'
+        // minTable: 'http://localhost:8080/api/netWorkEffect'
       }
     }
   }
