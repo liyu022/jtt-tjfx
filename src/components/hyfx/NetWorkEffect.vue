@@ -1,5 +1,5 @@
 <template>
-  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="params.lineData" :pointData="params.pointData"></hd-map>
+  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineLayer="lineLayer" :pointLayer="pointLayer"></hd-map>
 </template>
 
 <script>
@@ -20,15 +20,145 @@
       params: {
         year: '',
         closeable: '-1',
-        lineData: null,
-        pointData: null
+        lineData:[],
+        pointData: [],
+        pointType: 0
       }
-
+    },
+    computed: {
+      lineLayer: function () {
+        //debugger
+        return {
+          data: this.params.lineData,
+          parames: {
+            zoomToExtent: true,
+            selectable: true,
+            style: {
+              stroke: {
+                strokeColor: '#D81E06',
+                strokeWidth: 3
+              }
+            },
+            selectStyle: {
+              stroke: {
+                strokeColor: '#1115ff',
+                strokeWidth: 3
+              }
+            }
+          }
+        }
+      },
+      pointLayer: function () {
+        let points = this.dataToLayer(this.params.pointData);
+        return {
+          data: points,
+          parames: {
+            //layerName: this.pointLayer,
+            zoomToExtent: true,
+            selectable: false
+          }
+        }
+      }
     },
     created () {
       this.setSize()
     },
     methods: {
+      dataToLayer (data) {
+        let result = null;
+        if(this.params.pointType === 0) {
+          result = [];
+          let obj = {}
+          let nData = data
+          for (let i = 0; i < nData.length; i++) {
+            if (nData[i]['geometry']) {
+              obj = {}
+              // obj['attributes'] = nData[i]
+              obj['attributes'] = {}
+              obj.attributes['style'] = {
+                zIndex: i,
+                image: {
+                  type: 'icon',
+                  image: {
+                    imageSrc: 'static/images/marker.png',
+                    imageAnchor: [0.5, 1]
+                  }
+                },
+                text: {
+                  text: nData[i]['id'].toString(),
+                  textOffsetX: 3,
+                  textOffsetY: -15,
+                  textFill: {
+                    fillColor: '#FFF'
+                  },
+                  textStroke: {
+                    strokeColor: '#FFF'
+                  }
+                }
+              }
+              obj.attributes['selectStyle'] = {
+                zIndex: i,
+                image: {
+                  type: 'icon',
+                  image: {
+                    imageSrc: 'static/images/marker.png',
+                    imageAnchor: [0.5, 1]
+                  }
+                },
+                text: {
+                  text: nData[i]['id'].toString(),
+                  textOffsetX: 3,
+                  textOffsetY: -15,
+                  textFill: {
+                    fillColor: '#FFF'
+                  },
+                  textStroke: {
+                    strokeColor: '#FFF'
+                  }
+                }
+              }
+              obj['geometry'] = nData[i].geometry
+              obj['geometryType'] = 'Point'
+              result.push(obj)
+            }
+          }
+        }else if(this.params.pointType === 1){
+          result = [];
+          let obj = {}
+          let nData = data
+          for (let i = 0; i < nData.length; i++) {
+            if (nData[i]['centerPoint']) {
+              obj = {}
+              // obj['attributes'] = nData[i]
+              obj['attributes'] = {}
+              obj.attributes['style'] = {
+                zIndex: i,
+                image: {
+                  type: 'icon',
+                  image: {
+                    imageSrc: 'static/images/yhsg.png',
+                    imageAnchor: [0.5, 1]
+                  }
+                }
+              }
+              obj.attributes['selectStyle'] = {
+                zIndex: i,
+                image: {
+                  type: 'icon',
+                  image: {
+                    imageSrc: 'static/images/yhsg.png',
+                    imageAnchor: [0.5, 1]
+                  }
+                }
+              }
+              obj['geometry'] = nData[i].centerPoint
+              obj['geometryType'] = 'Point'
+              result.push(obj)
+            }
+          }
+        }
+        return result
+      },
       /**
        * 布局计算
        */

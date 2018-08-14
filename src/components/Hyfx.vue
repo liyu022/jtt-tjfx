@@ -48,7 +48,7 @@
             </el-row>
             <el-row :gutter="5">
               <el-col :span="24">
-                <el-table :data="minTable" size="small" :max-height="tableHeight" highlight-current-row @current-change="minTabRowClick">
+                <el-table ref="minTable" :data="minTable" size="small" :max-height="tableHeight" highlight-current-row @expand-change="minTabExpandChange" @row-click="minTabRowClick">
                   <el-table-column type="expand" width="20" style="padding: 3px">
                     <template slot-scope="props">
                       <!--
@@ -104,23 +104,22 @@ export default {
   data () {
     return {
       activeItem: "/hyfx/mainPeriod",
-      height: 100,
-      tableHeight: 700,
+      height: 100,               //内容区高度
+      tableHeight: 700,         //表格高度
       params: {
-        year: 'y',
-        closeable: '-1',
-        lineData:[],
-        pointData: []
+        year: 'y',               //参数年
+        closeable: '-1',        //是否关闭
+        lineData:[],             //拥堵线数据
+        pointData: []            //拥堵点数据
       },
       minChart: {
         chatObj: null,
         yhTimes: 0,                //养护起数
         yhMile: 0                  //养护里程
       },
-      minTable: []
+      minTable: [],                //拥堵数据
+      minCurrentRow: null         //拥堵表当前行
     }
-  },
-  computed: {
   },
   created () {
     this.setSize()
@@ -131,12 +130,24 @@ export default {
     this.createMinChart()
   },
   methods: {
+
+    /**
+     * 页面参数初始化
+     */
     init () {
       this.params.year = new Date().getFullYear().toString()
     },
+
+    /**
+     * 创建图表
+     */
     createMinChart () {
       this.minChart.chatObj = echarts.init(document.getElementById("minChart"))
     },
+
+    /**
+     * 切换菜单
+     */
     changeItem (item) {
       if (item != null) {
         this.toRouter(item)
@@ -146,12 +157,16 @@ export default {
         }
       }
     },
+
+    /**
+     * 切换路由
+     */
     toRouter (path) {
       this.$router.push(path)
     },
-    onSubmit() {
-      console.log('submit!')
-    },
+    /**
+     * 加载图表数据
+     */
     loadMinChartData () {
       var that = this
       this.$http.getData(config.service.hyfx.netWorkEffect.minChart, {}, {}, function (data, msg) {
@@ -282,38 +297,88 @@ export default {
         that.minChart.yhMile = data.totalMileage
       })
     },
+
+    /**
+     * 加载拥堵数据
+     */
     loadMinTableData () {
-      debugger
       var that = this
       this.$http.getData(config.service.hyfx.netWorkEffect.minTable, {}, {}, function (data, msg) {
-        /*
-        let yhArr = []
-        let yhlcArr = []
-        data.charts.forEach((val, index) => {
-          yhArr.push(val.amount)
-          yhlcArr.push(val.total)
-        })
-        */
-        let arr = []
-        if(data) {
-          data.forEach((item, index) => {
-            if(item.geometry){
-              arr.push({
-                geometry: item.geometry,
-                geometryType:item.geometryType
-              })
-            }
-          });
-        }
-        //that.pointData = []
-        that.params.lineData = arr
         that.minTable = data
+        that.params.lineData = that.getClusterLine()
+        that.params.pointType = 0   //拥堵点
+        that.params.pointData = that.getClusterPoint()
       })
     },
-    minTabRowClick (currentRow, oldRow) {
-      //debugger;
-      this.params.pointData = currentRow.data;
-      //console.log("click："+ currentRow.geometry)
+    /**
+     *  展开/收起行
+     */
+    minTabExpandChange (row, expandedRows){
+      if(expandedRows.length == 0){
+        //收起时-展示拥堵点
+        this.params.pointType = 0   //拥堵点
+        this.params.pointData = this.getClusterPoint()
+      }else {
+        //展开多条记录时，收回早先的记录，然后展示养护点
+        if(expandedRows.length > 1){
+          this.$refs.minTable.toggleRowExpansion(expandedRows[0],false)
+        }
+        this.params.pointType = 1    //养护点
+        this.params.pointData = row.data
+      }
+    },
+    /**
+     *  行选中处
+     */
+    minTabRowClick (row, event, column) {
+      if(row == this.minCurrentRow) {
+        this.minCurrentRow = null
+        this.$refs.minTable.setCurrentRow(this.minCurrentRow = null)  //取消表格选中
+        this.params.pointType = 0   //拥堵点
+        this.params.pointData = this.getClusterPoint()
+      }else {
+        this.minCurrentRow = row
+        this.params.pointType = 1     //养护点
+        this.params.pointData = row.data
+      }
+    },
+
+    /**
+     * 解析拥堵线
+     */
+    getClusterLine() {
+      let lineArr = []
+      if(this.minTable) {
+        this.minTable.forEach((item, index) => {
+          if(item.geometry){
+            lineArr.push({
+              geometry: item.geometry,
+              geometryType:item.geometryType
+            })
+          }
+        });
+      }
+      return lineArr
+    },
+
+    /**
+     * 解析拥堵点
+     */
+    getClusterPoint() {
+      let pointArr = []
+      if(this.minTable) {
+        this.minTable.forEach((item, index) => {
+          if(item.data){
+            let cnt = item.data.length;
+            pointArr.push({
+              id: item.id,
+              geometry:item.data[parseInt(cnt/2)]['centerPoint'],
+              geometryType: 'Point'
+            })
+          }
+        });
+      }
+      return pointArr
     },
     /**
      * 布局计算

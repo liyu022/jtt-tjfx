@@ -7,13 +7,13 @@
   name: "HdMap",
   props: {
     chartLayer: null,
-    lineData: null,
-    pointData: null
+    lineLayer: null,
+    pointLayer: null
   },
   data () {
     return {
-      lineLayer: 'line',
-      pointLayer: 'point',
+      lineName: 'line',
+      pointName: 'point',
       Map: null
     }
   },
@@ -29,95 +29,22 @@
         nLayer.appendTo(this.Map.getMap())
       }
     },
-    lineData: function (nLine, oline) {
+    lineLayer: function (nLine, oline) {
       if (oline != null) {
-        this.Map.removeFeatureByLayerName(this.lineLayer)
+        this.Map.removeFeatureByLayerName(this.lineName)
       }
       if (nLine != null){
-        this.Map.addPolylines(nLine, {
-          layerName: this.lineLayer,
-          zoomToExtent: true,
-          selectable: true,
-          style: {
-            stroke: {
-              strokeColor: '#1115ff',
-              strokeWidth: 3
-            }
-          },
-          selectStyle: {
-            stroke: {
-              strokeColor: '#D81E06',
-              strokeWidth: 3
-            }
-          }
-        })
+        nLine.parames.layerName = this.lineName
+        this.Map.addPolylines(nLine.data, nLine.parames)
       }
     },
-    pointData: function (nData, oData) {
-      //debugger
+    pointLayer: function (nData, oData) {
       if (oData != null) {
-        this.Map.removeFeatureByLayerName(this.pointLayer)
+        this.Map.removeFeatureByLayerName(this.pointName)
       }
       if (nData != null){
-        let points = []
-        let obj = {}
-        for (let i = 0; i < nData.length; i++) {
-          if (nData[i]['centerPoint']) {
-            obj = {}
-            obj['attributes'] = nData[i]
-            obj['attributes']['layerName'] = this.pointLayer
-            obj.attributes['style'] = {
-              zIndex: i,
-              image: {
-                type: 'icon',
-                image: {
-                  imageSrc: 'static/images/yhsg.png',
-                  imageAnchor: [0.5, 1]
-                }
-              },
-             text: {
-               text: (i + 1).toString(),
-               textOffsetX: 3,
-               textOffsetY: -15,
-               textFill: {
-                 fillColor: '#FFF'
-               },
-               textStroke: {
-                 strokeColor: '#FFF'
-               }
-             }
-            }
-            obj.attributes['selectStyle'] = {
-              zIndex: i,
-              image: {
-                type: 'icon',
-                image: {
-                  imageSrc: 'static/images/yhsg.png',
-                  imageAnchor: [0.5, 1]
-                }
-              },
-             text: {
-               text: (i + 1).toString(),
-               textOffsetX: 3,
-               textOffsetY: -15,
-               textFill: {
-                 fillColor: '#FFF'
-               },
-               textStroke: {
-                 strokeColor: '#FFF'
-               }
-             }
-            }
-            obj['geometry'] = nData[i].centerPoint
-            obj['geometryType'] = 'Point'
-            points.push(obj)
-          }
-        }
-        this.Map.addPoints(points, {
-          layerName: this.pointLayer,
-          zoomToExtent: true,
-          selectable: false
-        })
+        nData.parames.layerName = this.pointName
+        this.Map.addPoints(nData.data, nData.parames)
       }
     }
   },

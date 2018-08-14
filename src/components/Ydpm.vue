@@ -24,7 +24,7 @@
       </el-card>
     </el-col>
     <el-col :span="19">
-      <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="lineData"></hd-map>
+      <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineLayer="lineLayer"></hd-map>
     </el-col>
   </el-row>
 </template>
@@ -45,7 +45,7 @@ export default {
       updateTime: new Date().toLocaleString(),
       ydListData: [],
       chartLayer: null,
-      lineData: []
+      lineLayer: null
     }
   },
   created () {
@@ -140,8 +140,25 @@ export default {
     loadLine (lxbm) {
       var that = this
       this.$http.getData(config.service.ydpm.lineData, {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
-        // debugger
-        that.lineData = data
+        that.lineLayer = {
+          data: data,
+          parames: {
+            zoomToExtent: true,
+            selectable: true,
+            style: {
+              stroke: {
+                strokeColor: '#1115ff',
+                strokeWidth: 3
+              }
+            },
+            selectStyle: {
+              stroke: {
+                strokeColor: '#D81E06',
+                strokeWidth: 3
+              }
+            }
+          }
+        }
       })
     },
     /**
