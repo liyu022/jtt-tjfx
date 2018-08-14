@@ -1,5 +1,5 @@
 <template>
-  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="params.lineData"></hd-map>
+  <hd-map :style="'height:'+ mapHeight +'px;width:100%;'" :chartLayer="chartLayer" :lineData="params.lineData" :pointData="params.pointData"></hd-map>
 </template>
 
 <script>
@@ -13,15 +13,15 @@
       return {
         title: "路网运行影响分析",
         mapHeight: 500,
-        chartLayer: null,
-        lineData: []
+        chartLayer: null
       }
     },
     props: {
       params: {
         year: '',
         closeable: '-1',
-        lineData: null
+        lineData: null,
+        pointData: null
       }
 
     },

@@ -7,11 +7,13 @@
   name: "HdMap",
   props: {
     chartLayer: null,
-    lineData: null
+    lineData: null,
+    pointData: null
   },
   data () {
     return {
       lineLayer: 'line',
+      pointLayer: 'point',
       Map: null
     }
   },
@@ -48,6 +50,73 @@
               strokeWidth: 3
             }
           }
+        })
+      }
+    },
+    pointData: function (nData, oData) {
+      //debugger
+      if (oData != null) {
+        this.Map.removeFeatureByLayerName(this.pointLayer)
+      }
+      if (nData != null){
+        let points = []
+        let obj = {}
+        for (let i = 0; i < nData.length; i++) {
+          if (nData[i]['centerPoint']) {
+            obj = {}
+            obj['attributes'] = nData[i]
+            obj['attributes']['layerName'] = this.pointLayer
+            obj.attributes['style'] = {
+              zIndex: i,
+              image: {
+                type: 'icon',
+                image: {
+                  imageSrc: 'static/images/yhsg.png',
+                  imageAnchor: [0.5, 1]
+                }
+              },
+             text: {
+               text: (i + 1).toString(),
+               textOffsetX: 3,
+               textOffsetY: -15,
+               textFill: {
+                 fillColor: '#FFF'
+               },
+               textStroke: {
+                 strokeColor: '#FFF'
+               }
+             }
+            }
+            obj.attributes['selectStyle'] = {
+              zIndex: i,
+              image: {
+                type: 'icon',
+                image: {
+                  imageSrc: 'static/images/yhsg.png',
+                  imageAnchor: [0.5, 1]
+                }
+              },
+             text: {
+               text: (i + 1).toString(),
+               textOffsetX: 3,
+               textOffsetY: -15,
+               textFill: {
+                 fillColor: '#FFF'
+               },
+               textStroke: {
+                 strokeColor: '#FFF'
+               }
+             }
+            }
+            obj['geometry'] = nData[i].centerPoint
+            obj['geometryType'] = 'Point'
+            points.push(obj)
+          }
+        }
+        this.Map.addPoints(points, {
+          layerName: this.pointLayer,
+          zoomToExtent: true,
+          selectable: false
         })
       }
     }

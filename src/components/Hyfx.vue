@@ -109,7 +109,8 @@ export default {
       params: {
         year: 'y',
         closeable: '-1',
-        lineData:[]
+        lineData:[],
+        pointData: []
       },
       minChart: {
         chatObj: null,
@@ -304,13 +305,15 @@ export default {
             }
           });
         }
+        //that.pointData = []
         that.params.lineData = arr
         that.minTable = data
       })
     },
     minTabRowClick (currentRow, oldRow) {
       //debugger;
-      console.log("click："+ currentRow.geometry)
+      this.params.pointData = currentRow.data;
+      //console.log("click："+ currentRow.geometry)
     },
     /**
      * 布局计算
