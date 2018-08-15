@@ -32,6 +32,7 @@
         return {
           data: this.params.lineData,
           parames: {
+            layerName: 'clusterLine',
             zoomToExtent: true,
             selectable: true,
             style: {
@@ -54,7 +55,7 @@
         return {
           data: points,
           parames: {
-            //layerName: this.pointLayer,
+            layerName: this.params.pointType===0?'clusterPoint':'mainTainPoint',
             zoomToExtent: true,
             selectable: false
           }
@@ -135,8 +136,24 @@
           for (let i = 0; i < nData.length; i++) {
             if (nData[i]['centerPoint']) {
               obj = {}
-              // obj['attributes'] = nData[i]
-              obj['attributes'] = {}
+              obj['attributes'] = {
+                "id":nData[i]['id'],
+                "roadcode":nData[i]['roadcode'],
+                "roadname":nData[i]['roadname'],
+                "blockReason":nData[i]['blockReason'],
+                "detectTime":nData[i]['detectTime'],
+                "roadstart":nData[i]['roadstart'],
+                "roadend":nData[i]['roadend'],
+                "distcode":nData[i]['distcode'],
+                "blockMileage":nData[i]['blockMileage'],
+                "closeable":nData[i]['closeable'],
+                "sysOtime":nData[i]['sysOtime'],
+                "source":nData[i]['source'],
+                "centerPoint":nData[i]['centerPoint'],
+                "happenTime":nData[i]['happenTime'],
+                "directiontext":nData[i]['directiontext'],
+                "roadRangText":nData[i]['roadRangText']
+              }
               obj.attributes['style'] = {
                 zIndex: i,
                 image: {

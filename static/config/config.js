@@ -1,6 +1,6 @@
 /* eslint-disable */
 var config = {
-  baseUrl: 'http://localhost:8813',
+  baseUrl: 'http://10.228.2.135:8813',
   mapParames: {
     sxLiving: {
       center: [109.19554267784362, 34.957311521091796],
