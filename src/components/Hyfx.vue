@@ -127,6 +127,40 @@ export default {
       fullHeight:0
     }
   },
+  computed: {
+    //拥堵线
+    clusterLine: function(){
+      let lineArr = []
+      if(this.minTable) {
+        this.minTable.forEach((item, index) => {
+          if(item.geometry){
+            lineArr.push({
+              geometry: item.geometry,
+              geometryType:item.geometryType
+            })
+          }
+        });
+      }
+      return lineArr
+    },
+    //拥堵点
+    clusterPoint: function(){
+      let pointArr = []
+      if(this.minTable) {
+        this.minTable.forEach((item, index) => {
+          if(item.data){
+            let cnt = item.data.length;
+            pointArr.push({
+              id: item.id,
+              geometry:item.data[parseInt(cnt/2)]['centerPoint'],
+              geometryType: 'Point'
+            })
+          }
+        });
+      }
+      return pointArr
+    }
+  },
   created () {
     this.setSize()
     this.init()
@@ -317,9 +351,9 @@ export default {
       var that = this
       this.$http.getData(config.baseUrl + config.service.hyfx.netWorkEffect.minTable, {}, {}, function (data, msg) {
         that.minTable = data
-        that.params.lineData = that.getClusterLine()
+        that.params.lineData = that.clusterLine
         that.params.pointType = 0   //拥堵点
-        that.params.pointData = that.getClusterPoint()
+        that.params.pointData = that.clusterPoint
       })
     },
     /**
@@ -329,7 +363,7 @@ export default {
       if(expandedRows.length == 0){
         //收起时-展示拥堵点
         this.params.pointType = 0   //拥堵点
-        this.params.pointData = this.getClusterPoint()
+        this.params.pointData = this.clusterPoint
       }else {
         //展开多条记录时，收回早先的记录，然后展示养护点
         if(expandedRows.length > 1){
@@ -347,50 +381,12 @@ export default {
         this.minCurrentRow = null
         this.$refs.minTable.setCurrentRow(this.minCurrentRow = null)  //取消表格选中
         this.params.pointType = 0   //拥堵点
-        this.params.pointData = this.getClusterPoint()
+        this.params.pointData = this.clusterPoint
       }else {
         this.minCurrentRow = row
         this.params.pointType = 1     //养护点
         this.params.pointData = row.data
       }
-    },
-
-    /**
-     * 解析拥堵线
-     */
-    getClusterLine() {
-      let lineArr = []
-      if(this.minTable) {
-        this.minTable.forEach((item, index) => {
-          if(item.geometry){
-            lineArr.push({
-              geometry: item.geometry,
-              geometryType:item.geometryType
-            })
-          }
-        });
-      }
-      return lineArr
-    },
-
-    /**
-     * 解析拥堵点
-     */
-    getClusterPoint() {
-      let pointArr = []
-      if(this.minTable) {
-        this.minTable.forEach((item, index) => {
-          if(item.data){
-            let cnt = item.data.length;
-            pointArr.push({
-              id: item.id,
-              geometry:item.data[parseInt(cnt/2)]['centerPoint'],
-              geometryType: 'Point'
-            })
-          }
-        });
-      }
-      return pointArr
     },
     /**
      * 布局计算

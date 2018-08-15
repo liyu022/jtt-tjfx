@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  const wktFormat = new ol.format.WKT();
   export default {
   name: "HdMap",
   props: {
@@ -72,8 +73,16 @@
           layerUrl: mapParames.mapUrl
         }]
       })
+    },
+    fixToExtent (){
+      let mapParames = config.mapParames.getCurrent()
+      geometry = wktFormat.readGeometry('WKT', {
+        dataProjection: mapParames.projection ? mapParames.projection : undefined,
+        featureProjection: mapParames.projection ? mapParames.projection : undefined
+      })
+      var extent = geometry.getExtent();
+      this.Map.zoomToExtent(extent, true);
     }
-
   }
 }
 </script>
