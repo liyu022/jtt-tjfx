@@ -23,7 +23,8 @@
         interval: null,
         dateYear: '',
         dateMonth: '',
-        direction: null
+        direction: null,
+        fullHeight:0
       }
     },
     computed: {
@@ -38,6 +39,9 @@
       this.loadData()
     },
     watch: {
+      'params.fullHeight' (val) {
+        this.setSize()
+      },
       params: {
         handler(nV, oV) {
           this.loadData()
@@ -236,8 +240,8 @@
        * 布局计算
        */
       setSize() {
-        const clientHeight = document.documentElement.clientHeight
-        this.tableHeight = clientHeight - 167
+        // const clientHeight = document.documentElement.clientHeight
+        const clientHeight = this.params.fullHeight
         this.mapHeight = clientHeight - 70
         console.log('this.mapHeight:' + this.mapHeight)
       }

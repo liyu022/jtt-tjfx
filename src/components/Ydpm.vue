@@ -49,7 +49,7 @@ export default {
     }
   },
   props: {
-    params: {
+    params_in: {
       fullHeight:0
     }
   },
@@ -61,11 +61,14 @@ export default {
     this.reload()
   },
   watch: {
-    params: {
-      handler(nV, oV) {
-        this.setSize()
-      },
-      deep: true
+    // params: {
+    //   handler(nV, oV) {
+    //     this.setSize()
+    //   },
+    //   deep: true
+    // }
+    'params_in.fullHeight' (val) {
+      this.setSize()
     }
   },
   methods: {
@@ -178,10 +181,10 @@ export default {
      */
     setSize () {
       //const clientHeight = document.documentElement.clientHeight
-      const clientHeight = this.params.fullHeight
+      const clientHeight = this.params_in.fullHeight
       this.tableHeight = clientHeight - 166
       this.mapHeight = clientHeight - 66
-      console.log('this.mapHeight:' + this.mapHeight)
+      console.log('clientHeight-ydpm:' + clientHeight)
     }
   }
 }

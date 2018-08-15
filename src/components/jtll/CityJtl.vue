@@ -23,7 +23,8 @@ export default {
       interval: null,
       dateYear: '',
       dateMonth: '',
-      direction: null
+      direction: null,
+      fullHeight:0
     }
   },
   computed: {
@@ -38,6 +39,9 @@ export default {
     this.loadData()
   },
   watch: {
+    'params.fullHeight' (val) {
+      this.setSize()
+    },
     params: {
       handler(nV, oV) {
         this.loadData()
@@ -167,10 +171,10 @@ export default {
      * 布局计算
      */
     setSize () {
-      const clientHeight = document.documentElement.clientHeight
-      this.tableHeight = clientHeight - 167
+      // const clientHeight = document.documentElement.clientHeight
+      const clientHeight = this.params.fullHeight
       this.mapHeight = clientHeight - 70
-      console.log('this.mapHeight:' + this.mapHeight)
+      console.log('clientHeight-city:' + clientHeight)
     }
   }
 }

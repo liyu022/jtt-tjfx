@@ -110,7 +110,8 @@ export default {
         year: 'y',               //参数年
         closeable: '-1',        //是否关闭
         lineData:[],             //拥堵线数据
-        pointData: []            //拥堵点数据
+        pointData: [],            //拥堵点数据
+        fullHeight:0
       },
       minChart: {
         chatObj: null,
@@ -121,6 +122,11 @@ export default {
       minCurrentRow: null         //拥堵表当前行
     }
   },
+  props: {
+    params_in: {
+      fullHeight:0
+    }
+  },
   created () {
     this.setSize()
     this.init()
@@ -128,6 +134,12 @@ export default {
   },
   mounted () {
     this.createMinChart()
+  },
+  watch: {
+    'params_in.fullHeight' (val) {
+      this.setSize()
+      this.params.fullHeight = val
+    }
   },
   methods: {
 
@@ -384,10 +396,11 @@ export default {
      * 布局计算
      */
     setSize () {
-      const clientHeight = document.documentElement.clientHeight
+      // const clientHeight = document.documentElement.clientHeight
+      const clientHeight = this.params_in.fullHeight
       this.height = clientHeight - 68
       this.tableHeight = this.height - 400
-      console.log('this.height:' + this.height)
+      console.log('clientHeight-jtll:' + clientHeight)
     }
   }
 }

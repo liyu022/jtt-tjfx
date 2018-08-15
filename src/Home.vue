@@ -13,7 +13,7 @@
       </el-row>
     </el-header>
     <el-main>
-      <router-view :key="activeDate" :params="params"></router-view>
+      <router-view :key="activeDate" :params_in="params"></router-view>
     </el-main>
   </el-container>
 </template>
@@ -31,7 +31,6 @@ export default {
     }
   },
   created () {
-    this.setSize()
   },
   mounted() {
     const that = this

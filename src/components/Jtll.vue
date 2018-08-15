@@ -131,7 +131,7 @@ export default {
   data () {
     return {
       activeItem: "/jtll/provinceJtl",
-      height: 100,
+      height: 900,
       params: {
         carType: '0',
         interval: 'y',
@@ -140,6 +140,11 @@ export default {
         direction: 'a',
         fullHeight:0
       }
+    }
+  },
+  props: {
+    params_in: {
+      fullHeight:0
     }
   },
   computed: {
@@ -156,11 +161,9 @@ export default {
     console.log("load jtll.....")
   },
   watch: {
-    params: {
-      handler(nV, oV) {
-        this.setSize()
-      },
-      deep: true
+    'params_in.fullHeight' (val) {
+      this.setSize()
+      this.params.fullHeight = val
     }
   },
   methods: {
@@ -185,9 +188,9 @@ export default {
      */
     setSize () {
       // const clientHeight = document.documentElement.clientHeight
-      const clientHeight = this.params.fullHeight
+      const clientHeight = this.params_in.fullHeight
       this.height = clientHeight - 68
-      console.log('this.height:' + this.clientHeight)
+      console.log('clientHeight-jtll:' + clientHeight)
     }
   }
 }
