@@ -315,7 +315,7 @@ export default {
      */
     loadMinTableData () {
       var that = this
-      this.$http.getData(config.service.hyfx.netWorkEffect.minTable, {}, {}, function (data, msg) {
+      this.$http.getData(config.baseUrl + config.service.hyfx.netWorkEffect.minTable, {}, {}, function (data, msg) {
         that.minTable = data
         that.params.lineData = that.getClusterLine()
         that.params.pointType = 0   //拥堵点
@@ -400,7 +400,7 @@ export default {
       const clientHeight = this.params_in.fullHeight
       this.height = clientHeight - 68
       this.tableHeight = this.height - 400
-      console.log('clientHeight-jtll:' + clientHeight)
+      // console.log('clientHeight-jtll:' + clientHeight)
     }
   }
 }

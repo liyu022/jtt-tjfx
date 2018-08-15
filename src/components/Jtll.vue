@@ -190,7 +190,7 @@ export default {
       // const clientHeight = document.documentElement.clientHeight
       const clientHeight = this.params_in.fullHeight
       this.height = clientHeight - 68
-      console.log('clientHeight-jtll:' + clientHeight)
+      // console.log('clientHeight-jtll:' + clientHeight)
     }
   }
 }

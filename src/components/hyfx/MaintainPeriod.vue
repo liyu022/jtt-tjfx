@@ -16,7 +16,8 @@
     props: {
       params: {
         year: '',
-        closeable: '-1'
+        closeable: '-1',
+        fullHeight:0
       }
     },
     created () {
@@ -34,6 +35,9 @@
           this.loadData()
         },
         deep: true
+      },
+      'params.fullHeight' (val) {
+        this.setSize()
       }
     },
     methods: {
@@ -111,7 +115,7 @@
        * 布局计算
        */
       setSize () {
-        const clientHeight = document.documentElement.clientHeight
+        const clientHeight = this.params.fullHeight === 0? document.documentElement.clientHeight:this.params.fullHeight
         this.height = clientHeight - 108
         console.log('this.height:' + clientHeight)
       }

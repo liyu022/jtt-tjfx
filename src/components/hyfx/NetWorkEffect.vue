@@ -22,7 +22,8 @@
         closeable: '-1',
         lineData:[],
         pointData: [],
-        pointType: 0
+        pointType: 0,
+        fullHeight:0
       }
     },
     computed: {
@@ -58,6 +59,11 @@
             selectable: false
           }
         }
+      }
+    },
+    watch: {
+      'params.fullHeight' (val) {
+        this.setSize()
       }
     },
     created () {
@@ -163,10 +169,11 @@
        * 布局计算
        */
       setSize () {
-        const clientHeight = document.documentElement.clientHeight
+        // const clientHeight = document.documentElement.clientHeight
+        const clientHeight = this.params.fullHeight === 0? document.documentElement.clientHeight:this.params.fullHeight
         this.tableHeight = clientHeight - 167
         this.mapHeight = clientHeight - 70
-        console.log('this.mapHeight:' + this.mapHeight)
+        // console.log('this.mapHeight:' + this.mapHeight)
       }
     }
   }

@@ -184,7 +184,7 @@ export default {
       const clientHeight = this.params_in.fullHeight
       this.tableHeight = clientHeight - 166
       this.mapHeight = clientHeight - 66
-      console.log('clientHeight-ydpm:' + clientHeight)
+      // console.log('clientHeight-ydpm:' + clientHeight)
     }
   }
 }

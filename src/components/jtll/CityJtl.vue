@@ -174,7 +174,7 @@ export default {
       // const clientHeight = document.documentElement.clientHeight
       const clientHeight = this.params.fullHeight
       this.mapHeight = clientHeight - 70
-      console.log('clientHeight-city:' + clientHeight)
+      // console.log('clientHeight-city:' + clientHeight)
     }
   }
 }
