@@ -48,6 +48,11 @@ export default {
       lineLayer: null
     }
   },
+  props: {
+    params: {
+      fullHeight:0
+    }
+  },
   created () {
     this.setSize()
   },
@@ -55,7 +60,14 @@ export default {
     this.loadListData()
     this.reload()
   },
-  watch: {},
+  watch: {
+    params: {
+      handler(nV, oV) {
+        this.setSize()
+      },
+      deep: true
+    }
+  },
   methods: {
     /**
      * 自动生成拥堵列表行号
@@ -165,9 +177,10 @@ export default {
      * 布局计算
      */
     setSize () {
-      const clientHeight = document.documentElement.clientHeight
-      this.tableHeight = clientHeight - 167
-      this.mapHeight = clientHeight - 70
+      //const clientHeight = document.documentElement.clientHeight
+      const clientHeight = this.params.fullHeight
+      this.tableHeight = clientHeight - 166
+      this.mapHeight = clientHeight - 66
       console.log('this.mapHeight:' + this.mapHeight)
     }
   }

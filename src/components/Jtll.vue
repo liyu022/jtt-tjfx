@@ -137,7 +137,8 @@ export default {
         interval: 'y',
         dateYear: '',
         dateMonth: '',
-        direction: 'a'
+        direction: 'a',
+        fullHeight:0
       }
     }
   },
@@ -154,13 +155,14 @@ export default {
   mounted () {
     console.log("load jtll.....")
   },
-  /*
   watch: {
-    activeDate: function (nV, oV) {
-      console.log("activeDate发生了变化：nV" + nV + ",oV" + oV)
+    params: {
+      handler(nV, oV) {
+        this.setSize()
+      },
+      deep: true
     }
   },
-  */
   methods: {
     init () {
       this.params.dateYear = new Date().getFullYear().toString()
@@ -182,9 +184,10 @@ export default {
      * 布局计算
      */
     setSize () {
-      const clientHeight = document.documentElement.clientHeight
+      // const clientHeight = document.documentElement.clientHeight
+      const clientHeight = this.params.fullHeight
       this.height = clientHeight - 68
-      console.log('this.height:' + this.height)
+      console.log('this.height:' + this.clientHeight)
     }
   }
 }

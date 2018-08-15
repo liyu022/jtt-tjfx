@@ -86,7 +86,7 @@ var config = {
       },
       netWorkEffect: {
         minChart: 'http://10.228.2.135:8804/lwgl-yxjc/block/chart/mainplan',
-        minTable: 'http://localhost:8813/hyfx/NetWorkEffect'
+        minTable: '/hyfx/NetWorkEffect'
         // minTable: 'http://localhost:8080/api/netWorkEffect'
       }
     }

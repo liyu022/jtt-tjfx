@@ -48,61 +48,63 @@
           closeable: this.params.closeable
         }, {}, function (data, msg) {
           console.log(data)
-          var option = {
-            tooltip : {
-              trigger: 'axis'
-            },
-            toolbox: {
-              show : true,
-              feature : {
-                mark : {show: false},
-                dataView : {show: false, readOnly: false},
-                magicType: {show: false, type: ['line', 'bar']},
-                restore : {show: false},
-                saveAsImage : {show: true}
-              }
-            },
-            calculable : true,
-            legend: {
-              data:['养护里程','养护起数']
-            },
-            xAxis : [
-              {
-                type : 'category',
-                data : data.date
-              }
-            ],
-            yAxis : [
-              {
-                type : 'value',
-                name : '里程',
-                axisLabel : {
-                  formatter: '{value} 公里'
+          if(data){
+            var option = {
+              tooltip : {
+                trigger: 'axis'
+              },
+              toolbox: {
+                show : true,
+                feature : {
+                  mark : {show: false},
+                  dataView : {show: false, readOnly: false},
+                  magicType: {show: false, type: ['line', 'bar']},
+                  restore : {show: false},
+                  saveAsImage : {show: true}
                 }
               },
-              {
-                type : 'value',
-                name : '起数',
-                axisLabel : {
-                  formatter: '{value} 起'
-                }
-              }
-            ],
-            series : [
-              {
-                name:'养护里程',
-                type:'bar',
-                data:data.miles
+              calculable : true,
+              legend: {
+                data:['养护里程','养护起数']
               },
-              {
-                name: '养护起数',
-                type:'line',
-                yAxisIndex: 1,
-                data: data.times
-              }
-            ]
+              xAxis : [
+                {
+                  type : 'category',
+                  data : data.date
+                }
+              ],
+              yAxis : [
+                {
+                  type : 'value',
+                  name : '里程',
+                  axisLabel : {
+                    formatter: '{value} 公里'
+                  }
+                },
+                {
+                  type : 'value',
+                  name : '起数',
+                  axisLabel : {
+                    formatter: '{value} 起'
+                  }
+                }
+              ],
+              series : [
+                {
+                  name:'养护里程',
+                  type:'bar',
+                  data:data.miles
+                },
+                {
+                  name: '养护起数',
+                  type:'line',
+                  yAxisIndex: 1,
+                  data: data.times
+                }
+              ]
+            }
+            that.chart.setOption(option)
           }
-          that.chart.setOption(option)
         })
       },
       /**

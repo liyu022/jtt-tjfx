@@ -13,7 +13,7 @@
       </el-row>
     </el-header>
     <el-main>
-      <router-view :key="activeDate"></router-view>
+      <router-view :key="activeDate" :params="params"></router-view>
     </el-main>
   </el-container>
 </template>
@@ -24,7 +24,22 @@ export default {
   data () {
     return {
       title: '路网运行监测大数据分析',
-      activeDate: new Date().getTime()
+      activeDate: new Date().getTime(),
+      params: {
+        fullHeight: document.documentElement.clientHeight
+      }
+    }
+  },
+  created () {
+    this.setSize()
+  },
+  mounted() {
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.fullHeight = document.documentElement.clientHeight
+        that.params.fullHeight = window.fullHeight
+      })()
     }
   },
   methods: {
