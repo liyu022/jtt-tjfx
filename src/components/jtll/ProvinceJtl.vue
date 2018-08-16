@@ -110,6 +110,11 @@
               data: data.date,
               splitLine: {
                 show: false
+              },
+              axisLabel: {
+                formatter: function (value) {
+                  return value + "月"
+                }
               }
             },
             //y轴显示

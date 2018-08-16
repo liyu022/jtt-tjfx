@@ -39,6 +39,8 @@ export default {
   },
   data () {
     return {
+      timer: null,
+      timeOut: 1000 * 60 * 10,
       title: '拥堵排名',
       tableHeight: 100,
       mapHeight: 500,
@@ -57,21 +59,26 @@ export default {
     this.setSize()
   },
   mounted () {
-    this.loadListData()
+    clearInterval(this.timer)
     this.reload()
+    this.setTimer()
+  },
+  destroyed: function() {
+    clearInterval(this.timer)
   },
   watch: {
-    // params: {
-    //   handler(nV, oV) {
-    //     this.setSize()
-    //   },
-    //   deep: true
-    // }
     'params_in.fullHeight' (val) {
       this.setSize()
     }
   },
   methods: {
+    setTimer: function () {
+      let that = this
+      this.timer = setInterval( () => {
+        that.reload()
+      }, this.timeOut)
+
+    },
     /**
      * 自动生成拥堵列表行号
      * @param index
@@ -94,6 +101,7 @@ export default {
      * 重新刷新数据
      */
     reload () {
+      console.log("reload...........")
       this.updateTime = new Date().toLocaleString()
       this.lineData = null
       this.loadListData()
@@ -158,6 +166,7 @@ export default {
         that.lineLayer = {
           data: data,
           parames: {
+            layerName: 'ydLine',
             zoomToExtent: true,
             selectable: true,
             style: {

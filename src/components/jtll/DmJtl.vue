@@ -67,13 +67,6 @@ export default {
           kcjtl.push((item/10000).toFixed(2))
         })
         that.chart.setOption({
-          title: {
-            text: "高速公路断面交通量统计",
-              textStyle: {
-              color: "#436EEE",
-                fontSize: 17
-            }
-          },
           tooltip: {
             trigger: "axis",
               axisPointer: {
@@ -94,6 +87,13 @@ export default {
             data: data.name,
             splitLine: {
               show: false
+            },
+            axisLabel: {
+              interval: 0,
+              formatter: function (value) {
+                return value.split("").join("\n")
+              }
+              // rotate:-90
             }
           },
           //y轴显示
