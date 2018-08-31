@@ -4,7 +4,7 @@
 
 <script>
   import HdMap from '../common/HdMap.vue'
-
+  // import logger from "../../services/logger"
   export default {
     name: "",
     components: {
@@ -36,6 +36,7 @@
       this.setSize()
     },
     mounted() {
+      this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','省界高速公路交通量统计查询')
       this.loadData()
     },
     watch: {

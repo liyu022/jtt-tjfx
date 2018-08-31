@@ -99,6 +99,7 @@
 </template>
 
 <script>
+  // import logger from "../../services/logger"
 export default {
   name: "Hyfx",
   data () {
@@ -167,6 +168,7 @@ export default {
     this.changeItem(this.activeItem)
   },
   mounted () {
+    this.log.logging('JTYJ-APP-GLYX-TJFX','行业分析','进入行业分析页面')
     this.createMinChart()
   },
   watch: {

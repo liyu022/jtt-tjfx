@@ -6,10 +6,13 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import httpUtil from './services/httpUtil'
+import 'babel-polyfill'
+import log from './services/logger'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$http = httpUtil
+Vue.prototype.log = log
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

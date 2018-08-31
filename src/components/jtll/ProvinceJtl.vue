@@ -4,6 +4,7 @@
 </template>
 
 <script>
+  // import logger from "../../services/logger"
   export default {
     name: "",
     data() {
@@ -32,6 +33,7 @@
       this.setSize()
     },
     mounted () {
+      this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','全省高速公路交通量统计查询')
       this.createChart()
       this.loadData()
     },
