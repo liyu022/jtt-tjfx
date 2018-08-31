@@ -123,7 +123,7 @@ export default {
               axisTick: {
                 show: false
               },
-              data : ['出口交通量','入口交通量']
+              data : ['出口交通量(单位:辆)','入口交通量(单位:辆)']
             })
             options.yAxis.push({
               type: 'value',

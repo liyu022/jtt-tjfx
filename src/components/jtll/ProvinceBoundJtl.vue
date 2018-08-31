@@ -73,7 +73,7 @@
             trigger: 'item',
             formatter: function (params) {
               if (params.data.fromName) {
-                return params.data.fromName + " > " + params.data.toName + " <br/>交通量 : " + params.data.fromValue;
+                return params.data.fromName + " > " + params.data.toName + "(辆)" + " <br/>交通量 : " + (params.data.fromValue).toLocaleString();
               } else {
                 return "从" + params.name + "<br/>驶入的交通量：" + params.value[2];
               }

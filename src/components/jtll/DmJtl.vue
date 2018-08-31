@@ -100,7 +100,7 @@ export default {
           yAxis: [
             {
               type: 'value',
-              name: '车辆',
+              name: '交通量',
               splitLine: {
                 show: false
               },
