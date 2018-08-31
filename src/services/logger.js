@@ -14,19 +14,20 @@ export default {
         'logMsg': logMsg,
         'userId': userId
       }
-
-    axios.post(
-      LogURL,
-      qs.stringify(data),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    if(userId != null && userId != '' && userId != 'undefined'){
+      axios.post(
+        LogURL,
+        qs.stringify(data),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          }
         }
-      }
-    ).then(function (response) {
-      console.log(response)
-    }).catch(function (err) {
-      console.log(err)
-    })
+      ).then(function (response) {
+        console.log(response)
+      }).catch(function (err) {
+        console.log(err)
+      })
+    }
   }
 }
