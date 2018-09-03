@@ -37,8 +37,8 @@
               <el-form-item label="出口入口">
                 <el-select v-model="params.direction" placeholder="请选择出口入口">
                   <el-option label="全部" value="a"></el-option>
-                  <el-option label="出口" value="r"></el-option>
-                  <el-option label="入口" value="c"></el-option>
+                  <el-option label="出口" value="c"></el-option>
+                  <el-option label="入口" value="r"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="统计模式">
@@ -96,8 +96,8 @@
               <el-form-item label="出口入口">
                 <el-select v-model="params.direction" placeholder="请选择出口入口">
                   <el-option label="全部" value="a"></el-option>
-                  <el-option label="出口" value="r"></el-option>
-                  <el-option label="入口" value="c"></el-option>
+                  <el-option label="出口" value="c"></el-option>
+                  <el-option label="入口" value="r"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="统计模式">

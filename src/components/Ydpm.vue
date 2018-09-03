@@ -6,7 +6,7 @@
           <span>数据刷新时间：{{updateTime}}</span>
           <el-button icon="el-icon-refresh" size="small" style="float: right;" @click="reload"></el-button>
         </div>
-        <el-table :data="ydListData" :max-height="tableHeight" highlight-current-row @current-change="listRowClick" style="width: 100%">
+        <el-table :data="ydListData" :max-height="tableHeight" highlight-current-row @current-change="listRowClick" style="width: 100%; cursor:pointer;">
           <el-table-column  type="index" :index="genIndex" label="排名" align="center">
             <template slot-scope="scope">
               <el-button v-if="(scope.$index +1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>

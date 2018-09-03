@@ -76,6 +76,18 @@ export default {
           legend: {
             data: ["客车", "货车"]
           },
+          toolbox: {
+            show: true,
+            feature: {
+              dataView: {show: true},
+              saveAsImage: {
+                show: true,
+                excludeComponents: ['toolbox'],
+                pixelRatio: 2
+
+              }
+            }
+          },
           grid: {
             left: '3%',
               right: '3%',

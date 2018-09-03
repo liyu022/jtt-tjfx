@@ -61,7 +61,7 @@
                 show : true,
                 feature : {
                   mark : {show: false},
-                  dataView : {show: false, readOnly: false},
+                  dataView : {show: true, readOnly: false},
                   magicType: {show: false, type: ['line', 'bar']},
                   restore : {show: false},
                   saveAsImage : {show: true}

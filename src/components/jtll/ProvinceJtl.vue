@@ -95,7 +95,6 @@
                   show: true,
                   excludeComponents: ['toolbox'],
                   pixelRatio: 2
-
                 }
               }
             },

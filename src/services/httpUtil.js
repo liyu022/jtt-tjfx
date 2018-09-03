@@ -7,7 +7,7 @@ import axios from 'axios'
  */
 
 function initAxios () {
-  axios.defaults.headers.post['Content-Type'] = 'application/json'
+  // axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
   /*
   if (headers) {
     for (var key in headers) {
@@ -73,6 +73,7 @@ export function getData (hasParamUrl, params, headers, callback) {
  * @param callback 回调函数
  */
 export function postData (requestUrl, params, headers, callback) {
+  debugger
   initAxios()
   let config = {
     headers: headers

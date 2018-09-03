@@ -48,7 +48,11 @@
             </el-row>
             <el-row :gutter="5">
               <el-col :span="24">
-                <el-table ref="minTable" :data="minTable" size="small" :max-height="tableHeight" highlight-current-row @expand-change="minTabExpandChange" @row-click="minTabRowClick">
+                <el-table ref="minTable" :data="minTable" size="small" :max-height="tableHeight"
+                          highlight-current-row
+                          @expand-change="minTabExpandChange"
+                          @row-click="minTabRowClick"
+                style="cursor:pointer;">
                   <el-table-column type="expand" width="20" style="padding: 3px">
                     <template slot-scope="props">
                       <!--
