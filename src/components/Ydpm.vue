@@ -32,6 +32,7 @@
 <script>
 
 import HdMap from './common/HdMap.vue'
+
 export default {
   name: 'Ydpm',
   components: {
@@ -59,9 +60,11 @@ export default {
     this.setSize()
   },
   mounted () {
+    this.getUserId()
     clearInterval(this.timer)
     this.reload()
     this.setTimer()
+    this.log.logging('JTYJ-APP-GLYX-TJFX','拥堵排名','进入拥堵排名页面')
   },
   destroyed: function() {
     clearInterval(this.timer)
@@ -72,6 +75,10 @@ export default {
     }
   },
   methods: {
+    getUserId(){
+      // const userId = window.location.search.split('=')[1]
+      sessionStorage.setItem('userId', window.location.search.split('=')[1])
+    },
     setTimer: function () {
       let that = this
       this.timer = setInterval( () => {

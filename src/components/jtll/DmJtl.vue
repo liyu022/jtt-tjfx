@@ -4,6 +4,7 @@
 </template>
 
 <script>
+  // import logger from "../../services/logger"
 export default {
   name: "Dmjtl",
   data () {
@@ -32,6 +33,7 @@ export default {
     this.setSize()
   },
   mounted () {
+    this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','高速路断面交通量统计查询')
     this.createChart()
     this.loadData()
   },
@@ -112,7 +114,7 @@ export default {
           yAxis: [
             {
               type: 'value',
-              name: '车辆',
+              name: '交通量',
               splitLine: {
                 show: false
               },

@@ -4,7 +4,7 @@
 
 <script>
   import HdMap from '../common/HdMap.vue'
-
+  // import logger from "../../services/logger"
   export default {
     name: "",
     components: {
@@ -36,6 +36,7 @@
       this.setSize()
     },
     mounted() {
+      this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','省界高速公路交通量统计查询')
       this.loadData()
     },
     watch: {
@@ -73,7 +74,7 @@
             trigger: 'item',
             formatter: function (params) {
               if (params.data.fromName) {
-                return params.data.fromName + " > " + params.data.toName + " <br/>交通量 : " + params.data.fromValue;
+                return params.data.fromName + " > " + params.data.toName + "(辆)" + " <br/>交通量 : " + (params.data.fromValue).toLocaleString();
               } else {
                 return "从" + params.name + "<br/>驶入的交通量：" + params.value[2];
               }

@@ -5,7 +5,7 @@
         <el-collapse v-model="activeItem" accordion @change="changeItem">
           <el-collapse-item name="/jtll/provinceJtl">
             <template slot="title" >
-              <span class="itemTitle">全省高速公路交通量分析</span>
+              <span class="itemTitle">全省高速公路交通量统计</span>
             </template>
             <el-form :model="params" label-position="left" label-width="80px">
               <el-form-item label="客车货车">
@@ -126,6 +126,7 @@
 </template>
 
 <script>
+  // import logger from "../../services/logger"
 export default {
   name: "Jtll",
   data () {
@@ -147,6 +148,9 @@ export default {
       fullHeight:0
     }
   },
+  mounted () {
+    this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','进入交通流量页面')
+  },
   computed: {
     provinceInterval: function(){
       return this.params.interval == 'y'? 'year':'month'
@@ -159,6 +163,7 @@ export default {
   },
   mounted () {
     console.log("load jtll.....")
+    // console.log(sessionStorage.getItem('userId'))
   },
   watch: {
     'params_in.fullHeight' (val) {

@@ -4,6 +4,7 @@
 
 <script>
   import HdMap from '../common/HdMap.vue'
+  // import logger from "../../services/logger"
   export default {
     name: "",
     components: {
@@ -25,6 +26,9 @@
         pointType: 0,
         fullHeight:0
       }
+    },
+    mounted () {
+      this.log.logging('JTYJ-APP-GLYX-TJFX','养护施工','路网运行影响分析查询')
     },
     computed: {
       lineLayer: function () {

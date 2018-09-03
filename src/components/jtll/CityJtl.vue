@@ -4,6 +4,7 @@
 
 <script>
   import HdMap from '../common/HdMap.vue'
+  // import logger from "../../services/logger"
 export default {
   name: "",
   components: {
@@ -36,6 +37,7 @@ export default {
     this.setSize()
   },
   mounted () {
+    this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','各地市高速公路交通量统计查询')
     this.loadData()
   },
   watch: {
@@ -123,7 +125,7 @@ export default {
               axisTick: {
                 show: false
               },
-              data : ['出口交通量','入口交通量']
+              data : ['出口交通量(单位:辆)','入口交通量(单位:辆)']
             })
             options.yAxis.push({
               type: 'value',

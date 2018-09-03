@@ -4,6 +4,7 @@
 </template>
 
 <script>
+  // import logger from "../../services/logger"
   export default {
     name: "",
     data () {
@@ -24,6 +25,7 @@
       this.setSize()
     },
     mounted () {
+      this.log.logging('JTYJ-APP-GLYX-TJFX','养护施工','养护施工时段统计查询')
       this.createChart()
       this.loadData()
     },
