@@ -9,8 +9,8 @@
         <el-table :data="ydListData" :max-height="tableHeight" highlight-current-row @current-change="listRowClick" style="width: 100%; cursor:pointer;">
           <el-table-column  type="index" :index="genIndex" label="排名" align="center">
             <template slot-scope="scope">
-              <el-button v-if="(scope.$index +1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
-              <el-button v-else-if="(scope.$index +1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
+              <el-button v-if="(scope.$index + 1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
+              <el-button v-else-if="(scope.$index + 1) == 10" type="danger" circle size="mini">{{(scope.$index +1)}}</el-button>
               <el-button v-else type="success" circle size="mini">{{(scope.$index +1)}}</el-button>
             </template>
           </el-table-column>
@@ -140,6 +140,9 @@ export default {
             }
           },
           backgroundColor: 'transparent',
+          legend: {
+            show: false
+          },
           visualMap: {
             min: 0,
             max: 1,
