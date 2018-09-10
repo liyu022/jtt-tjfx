@@ -10,6 +10,10 @@
         <el-col :span="16"><div class="content">{{mtPopData.roadRangText}}</div></el-col>
       </el-row>
       <el-row>
+        <el-col :span="8"><div class="lable">养护类型：</div></el-col>
+        <el-col :span="16"><div class="content">{{mtPopData.blockReason}}</div></el-col>
+      </el-row>
+      <el-row>
         <el-col :span="8"><div class="lable">施工方向：</div></el-col>
         <el-col :span="16"><div class="content">{{mtPopData.directiontext}}</div></el-col>
       </el-row>
@@ -46,7 +50,8 @@
         happenTime:'',
         directiontext:'',
         roadRangText:'',
-        sceneDesc:''
+        sceneDesc:'',
+        blockReason: ''
       }
     }
   },
@@ -141,6 +146,7 @@
           this.mtPopData.directiontext = properties.directiontext
           this.mtPopData.roadRangText = properties.roadRangText
           this.mtPopData.sceneDesc = properties.sceneDesc
+          this.mtPopData.blockReason = properties.blockReason
           let geometry = currentFeatrue.getGeometry()
           //this.showPop(geometry.getCoordinates());
           this.showPop(e.mapBrowserEvent.coordinate)
