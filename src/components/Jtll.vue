@@ -126,12 +126,11 @@
 </template>
 
 <script>
-  // import logger from "../../services/logger"
 export default {
-  name: "Jtll",
+  name: 'Jtll',
   data () {
     return {
-      activeItem: "/jtll/provinceJtl",
+      activeItem: '/jtll/provinceJtl',
       height: 900,
       params: {
         carType: '0',
@@ -139,31 +138,27 @@ export default {
         dateYear: '',
         dateMonth: '',
         direction: 'a',
-        fullHeight:0
+        fullHeight: 0
       }
     }
   },
   props: {
     params_in: {
-      fullHeight:0
+      fullHeight: 0
     }
   },
   mounted () {
-    this.log.logging('JTYJ-APP-GLYX-TJFX','交通流量','进入交通流量页面')
+    this.log.logging('JTYJ-APP-GLYX-TJFX', '交通流量', '进入交通流量页面')
   },
   computed: {
-    provinceInterval: function(){
-      return this.params.interval == 'y'? 'year':'month'
+    provinceInterval: function () {
+      return this.params.interval === 'y' ? 'year' : 'month'
     }
   },
   created () {
     this.setSize()
     this.init()
     this.changeItem(this.activeItem)
-  },
-  mounted () {
-    console.log("load jtll.....")
-    // console.log(sessionStorage.getItem('userId'))
   },
   watch: {
     'params_in.fullHeight' (val) {
@@ -175,7 +170,7 @@ export default {
     init () {
       this.params.dateYear = new Date().getFullYear().toString()
       const month = new Date().getMonth() + 1
-      this.params.dateMonth = new Date().getFullYear().toString() + (month < 10? '0' + month.toString():month.toString())
+      this.params.dateMonth = new Date().getFullYear().toString() + (month < 10 ? '0' + month.toString() : month.toString())
     },
     changeItem (item) {
       if (item != null) {
@@ -185,7 +180,7 @@ export default {
     toRouter (path) {
       this.$router.push(path)
     },
-    onSubmit() {
+    onSubmit () {
       console.log('submit!')
     },
     /**

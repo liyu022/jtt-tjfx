@@ -5,7 +5,7 @@
          <el-col :span="6"><div class="title">{{title }}</div></el-col>
          <el-col :span="6">
            <el-menu default-active="/" router mode="horizontal" @select="handleSelect" background-color="#3B7AB3" text-color="#fff" active-text-color="#ffd04b">
-             <el-menu-item index="/ydpm"><div class="menu">拥堵排名</div></el-menu-item>
+             <el-menu-item index="/ydpm"><div class="menu">路况分析</div></el-menu-item>
              <el-menu-item index="/jtll"><div class="menu">交通量</div></el-menu-item>
              <el-menu-item index="/hyfx"><div class="menu">行业分析</div></el-menu-item>
            </el-menu>

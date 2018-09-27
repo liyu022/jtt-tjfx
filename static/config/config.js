@@ -1,6 +1,6 @@
 /* eslint-disable */
 var config = {
-  baseUrl: 'http://10.228.2.135:8813',
+  baseUrl: 'http://localhost:8813',
   mapParames: {
     sxLiving: {
       center: [109.19554267784362, 34.957311521091796],
@@ -64,7 +64,9 @@ var config = {
     ydpm: {
       ydList: '/ydpm/getYdList',
       ydHeatData: '/ydpm/getYdHeatData',
-      lineData: 'http://10.228.2.135:8810/road/findByLxdm'
+      lineData: 'http://10.228.2.135:8810/road/findByLxdm',
+      ydHisList: '/ydpm/getYdHisList',
+      ydHisHeatData: '/ydpm/getYdHisHeatData'
     },
     jtll: {
       cityJtl: {

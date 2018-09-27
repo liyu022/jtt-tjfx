@@ -2,25 +2,78 @@
   <el-row style="height: 100%;padding: 3px;">
     <el-col :span="5">
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>数据刷新时间：{{updateTime}}</span>
-          <el-button icon="el-icon-refresh" size="small" style="float: right;" @click="reload"></el-button>
-        </div>
-        <el-table :data="ydListData" :max-height="tableHeight" highlight-current-row @current-change="listRowClick" style="width: 100%; cursor:pointer;">
-          <el-table-column  type="index" :index="genIndex" label="排名" align="center">
-            <template slot-scope="scope">
-              <el-button v-if="(scope.$index + 1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
-              <el-button v-else-if="(scope.$index + 1) == 10" type="danger" circle size="mini">{{(scope.$index +1)}}</el-button>
-              <el-button v-else type="success" circle size="mini">{{(scope.$index +1)}}</el-button>
+        <el-collapse v-model="activeItem" accordion @change="changeItem">
+          <el-collapse-item name="current">
+            <template slot="title" >
+              <span class="itemTitle">实时路况拥堵排名</span>
             </template>
-          </el-table-column>
-          <el-table-column prop="lxmc" label="路线名称" align="center">
-          </el-table-column>
-          <el-table-column prop="lc" label="路程里程" align="center">
-          </el-table-column>
-          <el-table-column prop="len" label="拥堵里程" align="center">
-          </el-table-column>
-        </el-table>
+            <span class="cur_title">数据刷新时间：{{updateTime}}</span>
+            <el-button icon="el-icon-refresh" size="small" style="float: right;" @click="reload"></el-button>
+            <el-table :data="ydListData" :max-height="tableHeight" highlight-current-row @current-change="listRowClick" style="width: 100%; cursor:pointer;">
+              <el-table-column  type="index" :index="genIndex" label="排名" align="center">
+                <template slot-scope="scope">
+                  <el-button v-if="(scope.$index + 1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
+                  <el-button v-else-if="(scope.$index + 1) == 10" type="danger" circle size="mini">{{(scope.$index +1)}}</el-button>
+                  <el-button v-else type="success" circle size="mini">{{(scope.$index +1)}}</el-button>
+                </template>
+              </el-table-column>
+              <el-table-column prop="lxmc" label="路线名称" align="center">
+              </el-table-column>
+              <el-table-column prop="lc" label="路程里程" align="center">
+              </el-table-column>
+              <el-table-column prop="len" label="拥堵里程" align="center">
+              </el-table-column>
+            </el-table>
+          </el-collapse-item>
+          <el-collapse-item name="history">
+            <template slot="title" >
+              <span class="itemTitle">历史路况趋势分析</span>
+            </template>
+            <el-row>
+              <el-col :span="24">
+                <el-date-picker
+                  v-model="his.dateRange"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="his.pickerOptions">
+                </el-date-picker>
+              </el-col>
+            </el-row>
+            <el-row style="padding-top: 5px;">
+              <el-col :span="24">
+                <el-progress :percentage="percentage"></el-progress>
+              </el-col>
+            </el-row>
+            <el-row type="flex" justify="center">
+              <el-col :span="6"><el-button icon="el-icon-caret-right" size="medium" circle :disabled="his.isPlay" @click="play()"></el-button></el-col>
+              <el-col :span="6"><el-button icon="el-icon-sort" size="medium" circle :disabled="!his.isPlay" @click="pause()"></el-button></el-col>
+              <el-col :span="6"><el-button icon="el-icon-d-arrow-right" size="medium" circle :disabled="!his.isPlay" @click="fast"></el-button></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="24">
+                <el-table :data="ydListData" :max-height="tableHeightHis" highlight-current-row style="width: 100%; cursor:pointer;">
+                  <el-table-column  type="index" :index="genIndex" label="排名" align="center">
+                    <template slot-scope="scope">
+                      <el-button v-if="(scope.$index + 1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
+                      <el-button v-else-if="(scope.$index + 1) == 10" type="danger" circle size="mini">{{(scope.$index +1)}}</el-button>
+                      <el-button v-else type="success" circle size="mini">{{(scope.$index +1)}}</el-button>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="LXMC" label="路线名称" align="center">
+                  </el-table-column>
+                  <el-table-column prop="CNT" label="累计次数" align="center">
+                  </el-table-column>
+                  <el-table-column prop="LEN" label="累计里程" align="center">
+                  </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+          </el-collapse-item>
+        </el-collapse>
       </el-card>
     </el-col>
     <el-col :span="19">
@@ -41,19 +94,71 @@ export default {
   data () {
     return {
       timer: null,
-      timeOut: 1000 * 60 * 10,
+      // timeOut: 1000 * 60 * 10,
+      timeOut: 1000 * 2,
       title: '拥堵排名',
       tableHeight: 100,
+      tableHeightHis: 100,
       mapHeight: 500,
       updateTime: new Date().toLocaleString(),
       ydListData: [],
       chartLayer: null,
-      lineLayer: null
+      lineLayer: null,
+      activeItem: 'current',
+      his: {
+        dateRange: [],
+        pickerOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick (picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          }, {
+            text: '十一长假',
+            onClick (picker) {
+              const start = new Date()
+              start.setMonth(9, 1)
+              start.setHours(0, 0, 0, 1)
+              const end = new Date()
+              end.setMonth(9, 7)
+              end.setHours(0, 0, 0, 1)
+              picker.$emit('pick', [start, end])
+            }
+          }]
+        },
+        timeRange: [],
+        timeIndex: 0,
+        isPlay: false,
+        timeOut: 1000 * 1,
+        isFast: false
+      }
+    }
+  },
+  computed: {
+    startDate: function () {
+      let date = this.his.dateRange[0]
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    },
+    endDate: function () {
+      let date = this.his.dateRange[1]
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    },
+    percentage: function () {
+      return this.his.timeRange.length === 0 ? 0 : (this.his.timeIndex / this.his.timeRange.length).toFixed(2) * 100
+    },
+    noPlay: function () {
+      return !this.his.isPlay
+    },
+    timeOutHis: function () {
+      return this.his.isFast ? Math.floor(this.his.timeOut / 2) : this.his.timeOut
     }
   },
   props: {
     params_in: {
-      fullHeight:0
+      fullHeight: 0
     }
   },
   created () {
@@ -61,30 +166,59 @@ export default {
   },
   mounted () {
     this.getUserId()
-    clearInterval(this.timer)
-    this.reload()
-    this.setTimer()
-    this.log.logging('JTYJ-APP-GLYX-TJFX','拥堵排名','进入拥堵排名页面')
+    this.log.logging('JTYJ-APP-GLYX-TJFX', '拥堵排名', '进入拥堵排名页面')
+    this.changeItem(this.activeItem)
   },
-  destroyed: function() {
+  destroyed: function () {
     clearInterval(this.timer)
   },
   watch: {
     'params_in.fullHeight' (val) {
       this.setSize()
+    },
+    'his.dateRange' (nValue, oValue) {
+      this.reload_his()
+    },
+    'his.timeIndex' (nValue, oValue) {
+      if (this.his.timeIndex === this.his.timeRange.length) {
+        this.finish()
+      }
     }
   },
   methods: {
-    getUserId(){
+    changeItem (item) {
+      // console.log('changeItem:' + item)
+      if (item === 'current') {
+        this.chartLayer = null
+        this.lineLayer = null
+        this.ydListData = null
+        clearInterval(this.timer)
+        this.reload()
+        this.setTimer()
+      } else if (item === 'history') {
+        // 历史路况趋势分析 - 日期控件初始化
+        if (this.his.dateRange.length === 0) {
+          const end = new Date()
+          const start = new Date()
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+          this.his.dateRange = [start, end]
+        }
+        this.chartLayer = null
+        this.lineLayer = null
+        this.ydListData = null
+        clearInterval(this.timer)
+        this.reload_his()
+      }
+    },
+    getUserId () {
       // const userId = window.location.search.split('=')[1]
       sessionStorage.setItem('userId', window.location.search.split('=')[1])
     },
     setTimer: function () {
       let that = this
-      this.timer = setInterval( () => {
+      this.timer = setInterval(() => {
         that.reload()
       }, this.timeOut)
-
     },
     /**
      * 自动生成拥堵列表行号
@@ -101,14 +235,14 @@ export default {
      */
     listRowClick (currentRow, oldRow) {
       // debugger
-      const lxbm = (currentRow && currentRow.lxbm)?currentRow.lxbm:''
+      // const lxbm = (currentRow && currentRow.lxbm)?currentRow.lxbm:''
       this.loadLine(currentRow.lxbm)
     },
     /**
      * 重新刷新数据
      */
     reload () {
-      console.log("reload...........")
+      console.log('reload...........')
       this.updateTime = new Date().toLocaleString()
       this.lineData = null
       this.loadListData()
@@ -196,12 +330,126 @@ export default {
       })
     },
     /**
+     * 重新刷新数据
+     */
+    reload_his () {
+      // console.log('reload_his...........')
+      this.updateTime = new Date().toLocaleString()
+      this.lineData = null
+      this.loadListData_his()
+    },
+    /**
+     * 加载拥堵列表
+     */
+    loadListData_his () {
+      this.his.timeRange = []
+      this.ydListData = []
+      this.finish()
+      var that = this
+      this.$http.getData(config.baseUrl + config.service.ydpm.ydHisList, {
+        startDate: this.startDate,
+        endDate: this.endDate
+      }, {}, function (data, msg) {
+        if (data) {
+          that.ydListData = data.ydData
+          that.his.timeRange = data.timeData
+        }
+      })
+    },
+    /**
+     * 开始播放
+     */
+    play () {
+      this.his.isPlay = true
+      let that = this
+      if (this.his.timeRange.length > 0) {
+        this.timer = setInterval(() => {
+          var sjsj = that.his.timeRange[that.his.timeIndex]['SJSJ']
+          that.loadHeatData_his(sjsj)
+          that.his.timeIndex = that.his.timeIndex + 1
+        }, this.timeOutHis)
+      } else {
+        this.$message('无可播放数据!')
+      }
+    },
+    /**
+     * 暂停
+     */
+    pause () {
+      this.his.isPlay = false
+      clearInterval(this.timer)
+    },
+    /**
+     * 快进
+     */
+    fast () {
+      this.his.isFast = !this.his.isFast
+      this.pause()
+      this.play()
+    },
+    /**
+     * 播放完成
+     */
+    finish () {
+      this.his.isPlay = false
+      clearInterval(this.timer)
+      this.his.timeIndex = 0
+    },
+    /**
+     * 加载热力数据
+     */
+    loadHeatData_his (sjsj) {
+      console.log('loadHeatData_his-' + sjsj)
+      // var that = this
+      // this.$http.getData(config.baseUrl + config.service.ydpm.ydHisHeatData, {
+      //   sjsj: sjsj
+      // }, {}, function (data, msg) {
+      //   const option = {
+      //     title: {
+      //       text: '',
+      //       subtext: '',
+      //       sublink: '',
+      //       left: 'center',
+      //       textStyle: {
+      //         color: '#fff'
+      //       }
+      //     },
+      //     backgroundColor: 'transparent',
+      //     legend: {
+      //       show: false
+      //     },
+      //     visualMap: {
+      //       min: 0,
+      //       max: 1,
+      //       splitNumber: 5,
+      //       inRange: {
+      //         color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
+      //       },
+      //       textStyle: {
+      //         color: '#5fa0ff'
+      //       }
+      //     },
+      //     series: [{
+      //       name: 'AQI',
+      //       type: 'heatmap',
+      //       coordinateSystem: 'openlayers',
+      //       data: data
+      //     }]
+      //   }
+      //   that.chartLayer = new ol3Echarts(option, {
+      //     hideOnMoving: true,
+      //     hideOnZooming: true
+      //   })
+      // })
+    },
+    /**
      * 布局计算
      */
     setSize () {
-      //const clientHeight = document.documentElement.clientHeight
+      // const clientHeight = document.documentElement.clientHeight
       const clientHeight = this.params_in.fullHeight
-      this.tableHeight = clientHeight - 166
+      this.tableHeight = clientHeight - 265
+      this.tableHeightHis = clientHeight - 325
       this.mapHeight = clientHeight - 66
       // console.log('clientHeight-ydpm:' + clientHeight)
     }
@@ -210,4 +458,35 @@ export default {
 </script>
 
 <style scope>
+  .itemTitle {
+    padding-left: 10px;
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+  }
+  .cur_title {
+    color:#7a7a7a;
+    padding-left: 9px;
+  }
+  .play {
+    width: 30px;
+    height: 30px;
+    background:url('/static/images/player/play.png');
+    background-size:100%;
+    cursor: pointer;
+  }
+  .pause {
+    width: 30px;
+    height: 30px;
+    background:url('/static/images/player/pause.png');
+    background-size:100%;
+    cursor: pointer;
+  }
+  .fast {
+    width: 30px;
+    height: 30px;
+    background:url('/static/images/player/fast.png');
+    background-size:100%;
+    cursor: pointer;
+  }
 </style>

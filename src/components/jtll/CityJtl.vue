@@ -3,16 +3,15 @@
 </template>
 
 <script>
-  import HdMap from '../common/HdMap.vue'
-  // import logger from "../../services/logger"
+import HdMap from '../common/HdMap.vue'
 export default {
-  name: "",
+  name: '',
   components: {
     HdMap
   },
   data () {
     return {
-      title: "各地市高速公路交通量统计",
+      title: '各地市高速公路交通量统计',
       mapHeight: 500,
       chartLayer: null,
       lineData: []
@@ -25,7 +24,7 @@ export default {
       dateYear: '',
       dateMonth: '',
       direction: null,
-      fullHeight:0
+      fullHeight: 0
     }
   },
   computed: {
@@ -45,7 +44,7 @@ export default {
       this.setSize()
     },
     params: {
-      handler(nV, oV) {
+      handler (nV, oV) {
         this.loadData()
       },
       deep: true
@@ -63,21 +62,21 @@ export default {
         interval: this.params.interval
       }, {}, function (data, msg) {
         const options = {
-          tooltip : {
+          tooltip: {
             trigger: 'axis',
-            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            axisPointer: {
+              type: 'shadow'
             }
           },
           legend: {
-            x: "left",
+            x: 'left',
             show: true,
             data: [],
             selectedMode: 'multiple'
           },
           grid: [],
-          xAxis : [],
-          yAxis : [],
+          xAxis: [],
+          yAxis: [],
           series: []
         }
         if (data) {
@@ -88,7 +87,7 @@ export default {
             item.yAxisIndex = index
             item.itemStyle = {
               normal: {
-                label : {
+                label: {
                   show: true, position: 'insideTop'
                 }
               }
@@ -103,7 +102,7 @@ export default {
               height: 100
             })
             options.xAxis.push({
-              type : 'category',
+              type: 'category',
               show: true,
               gridIndex: index,
               nameTextStyle: {
@@ -125,7 +124,7 @@ export default {
               axisTick: {
                 show: false
               },
-              data : ['出口交通量(单位:辆)','入口交通量(单位:辆)']
+              data: ['出口交通量(单位:辆)', '入口交通量(单位:辆)']
             })
             options.yAxis.push({
               type: 'value',
