@@ -55,7 +55,7 @@
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-table :data="ydListData" :max-height="tableHeightHis" highlight-current-row style="width: 100%; cursor:pointer;">
+                <el-table :data="ydListData" :max-height="tableHeightHis" :cell-style="hisTabStyle" highlight-current-row style="width: 100%; cursor:pointer;">
                   <el-table-column  type="index" :index="genIndex" label="排名" align="center">
                     <template slot-scope="scope">
                       <el-button v-if="(scope.$index + 1) < 10" type="danger" circle size="mini">&nbsp;{{(scope.$index +1)}}</el-button>
@@ -94,8 +94,8 @@ export default {
   data () {
     return {
       timer: null,
-      // timeOut: 1000 * 60 * 10,
-      timeOut: 1000 * 2,
+      timeOut: 1000 * 60 * 10,
+      // timeOut: 1000 * 2,
       title: '拥堵排名',
       tableHeight: 100,
       tableHeightHis: 100,
@@ -109,11 +109,29 @@ export default {
         dateRange: [],
         pickerOptions: {
           shortcuts: [{
+            text: '今天',
+            onClick (picker) {
+              const end = new Date()
+              const start = new Date()
+              picker.$emit('pick', [start, end])
+            }
+          }, {
             text: '最近一周',
             onClick (picker) {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          }, {
+            text: '五一长假',
+            onClick (picker) {
+              const start = new Date()
+              start.setMonth(4, 1)
+              start.setHours(0, 0, 0, 1)
+              const end = new Date()
+              end.setMonth(4, 3)
+              end.setHours(0, 0, 0, 1)
               picker.$emit('pick', [start, end])
             }
           }, {
@@ -147,7 +165,7 @@ export default {
       return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     },
     percentage: function () {
-      return this.his.timeRange.length === 0 ? 0 : (this.his.timeIndex / this.his.timeRange.length).toFixed(2) * 100
+      return this.his.timeRange.length === 0 ? 0 : parseFloat(((this.his.timeIndex / this.his.timeRange.length) * 100).toFixed(0))
     },
     noPlay: function () {
       return !this.his.isPlay
@@ -399,48 +417,58 @@ export default {
      * 加载热力数据
      */
     loadHeatData_his (sjsj) {
-      console.log('loadHeatData_his-' + sjsj)
-      // var that = this
-      // this.$http.getData(config.baseUrl + config.service.ydpm.ydHisHeatData, {
-      //   sjsj: sjsj
-      // }, {}, function (data, msg) {
-      //   const option = {
-      //     title: {
-      //       text: '',
-      //       subtext: '',
-      //       sublink: '',
-      //       left: 'center',
-      //       textStyle: {
-      //         color: '#fff'
-      //       }
-      //     },
-      //     backgroundColor: 'transparent',
-      //     legend: {
-      //       show: false
-      //     },
-      //     visualMap: {
-      //       min: 0,
-      //       max: 1,
-      //       splitNumber: 5,
-      //       inRange: {
-      //         color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
-      //       },
-      //       textStyle: {
-      //         color: '#5fa0ff'
-      //       }
-      //     },
-      //     series: [{
-      //       name: 'AQI',
-      //       type: 'heatmap',
-      //       coordinateSystem: 'openlayers',
-      //       data: data
-      //     }]
-      //   }
-      //   that.chartLayer = new ol3Echarts(option, {
-      //     hideOnMoving: true,
-      //     hideOnZooming: true
-      //   })
-      // })
+      // console.log('loadHeatData_his-' + sjsj)
+      var that = this
+      this.$http.getData(config.baseUrl + config.service.ydpm.ydHisHeatData, {
+        sjsj: sjsj
+      }, {}, function (data, msg) {
+        const option = {
+          title: {
+            text: '',
+            subtext: '',
+            sublink: '',
+            left: 'center',
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          backgroundColor: 'transparent',
+          legend: {
+            show: false
+          },
+          visualMap: {
+            min: 0,
+            max: 1,
+            splitNumber: 5,
+            inRange: {
+              color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
+            },
+            textStyle: {
+              color: '#5fa0ff'
+            }
+          },
+          series: [{
+            name: 'AQI',
+            type: 'heatmap',
+            coordinateSystem: 'openlayers',
+            data: data
+          }]
+        }
+        that.chartLayer = new ol3Echarts(option, {
+          hideOnMoving: true,
+          hideOnZooming: true
+        })
+      })
+    },
+    /**
+     * 样式函数
+     */
+    hisTabStyle ({row, column, rowIndex, columnIndex}) {
+      console.log('hisTabStyle:' + rowIndex + ',' + columnIndex)
+      if (rowIndex < 10 && columnIndex === 3) {
+        // 设置 - 排名前10位的‘累计里程’样式
+        return 'color:#F56C6C'
+      }
     },
     /**
      * 布局计算
