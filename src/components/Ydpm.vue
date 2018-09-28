@@ -474,7 +474,7 @@ export default {
       // const clientHeight = document.documentElement.clientHeight
       const clientHeight = this.params_in.fullHeight
       this.tableHeight = clientHeight - 265
-      this.tableHeightHis = clientHeight - 325
+      this.tableHeightHis = clientHeight - 326
       this.mapHeight = clientHeight - 66
       // console.log('clientHeight-ydpm:' + clientHeight)
     }
