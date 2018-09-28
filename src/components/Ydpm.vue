@@ -167,9 +167,6 @@ export default {
     percentage: function () {
       return this.his.timeRange.length === 0 ? 0 : parseFloat(((this.his.timeIndex / this.his.timeRange.length) * 100).toFixed(0))
     },
-    noPlay: function () {
-      return !this.his.isPlay
-    },
     timeOutHis: function () {
       return this.his.isFast ? Math.floor(this.his.timeOut / 2) : this.his.timeOut
     }
