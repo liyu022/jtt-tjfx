@@ -48,10 +48,10 @@
                 <el-progress :percentage="percentage"></el-progress>
               </el-col>
             </el-row>
-            <el-row type="flex" justify="center">
-              <el-col :span="6"><el-button icon="el-icon-caret-right" size="medium" circle :disabled="his.isPlay" @click="play()"></el-button></el-col>
-              <el-col :span="6"><el-button icon="el-icon-sort" size="medium" circle :disabled="!his.isPlay" @click="pause()"></el-button></el-col>
-              <el-col :span="6"><el-button icon="el-icon-d-arrow-right" size="medium" circle :disabled="!his.isPlay" @click="fast"></el-button></el-col>
+            <el-row type="flex" justify="center" :gutter="20">
+              <el-col :span="6"><el-button icon="el-icon-caret-right" size="small" round :disabled="his.isPlay" @click="play()">播放</el-button></el-col>
+              <el-col :span="6"><el-button icon="el-icon-sort" size="small" round :disabled="!his.isPlay" @click="pause()">暂停</el-button></el-col>
+              <el-col :span="6"><el-button icon="el-icon-d-arrow-right" size="small" round :disabled="!his.isPlay" @click="fast"><span v-if="his.isFast">XX2</span><span v-else>快进</span></el-button></el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
@@ -352,8 +352,8 @@ export default {
      */
     reload_his () {
       // console.log('reload_his...........')
-      this.updateTime = new Date().toLocaleString()
       this.lineData = null
+      this.chartLayer = null
       this.loadListData_his()
     },
     /**
@@ -409,8 +409,8 @@ export default {
      * 播放完成
      */
     finish () {
-      this.his.isPlay = false
       clearInterval(this.timer)
+      this.his.isPlay = false
       this.his.timeIndex = 0
     },
     /**
