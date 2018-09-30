@@ -257,7 +257,7 @@ export default {
      * 重新刷新数据
      */
     reload () {
-      console.log('reload...........')
+      // console.log('reload...........')
       this.updateTime = new Date().toLocaleString()
       this.lineData = null
       this.loadListData()
