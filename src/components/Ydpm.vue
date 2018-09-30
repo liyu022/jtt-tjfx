@@ -43,15 +43,15 @@
                 </el-date-picker>
               </el-col>
             </el-row>
-            <el-row style="padding-top: 5px;">
-              <el-col :span="24">
-                <el-progress :percentage="percentage"></el-progress>
+            <el-row type="flex" justify="center" style="padding-top: 5px;">
+              <el-col :span="22">
+                <el-slider v-model="his.timeIndex" :format-tooltip="formatSliderTooltip" :max="max" @change="playSliderTo"></el-slider>
               </el-col>
             </el-row>
             <el-row type="flex" justify="center" :gutter="20">
               <el-col :span="6"><el-button icon="el-icon-caret-right" size="small" round :disabled="his.isPlay" @click="play()">播放</el-button></el-col>
               <el-col :span="6"><el-button icon="el-icon-sort" size="small" round :disabled="!his.isPlay" @click="pause()">暂停</el-button></el-col>
-              <el-col :span="6"><el-button icon="el-icon-d-arrow-right" size="small" round :disabled="!his.isPlay" @click="fast"><span v-if="his.isFast">XX2</span><span v-else>快进</span></el-button></el-col>
+              <el-col :span="6"><el-button icon="el-icon-d-arrow-right" size="small" round :disabled="!his.isPlay" @click="fast">快X{{ step}}</el-button></el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
@@ -151,7 +151,7 @@ export default {
         timeIndex: 0,
         isPlay: false,
         timeOut: 1000 * 1,
-        isFast: false
+        speed: 0
       }
     }
   },
@@ -164,11 +164,11 @@ export default {
       let date = this.his.dateRange[1]
       return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     },
-    percentage: function () {
-      return this.his.timeRange.length === 0 ? 0 : parseFloat(((this.his.timeIndex / this.his.timeRange.length) * 100).toFixed(0))
+    step: function () {
+      return Math.pow(2, this.his.speed)
     },
-    timeOutHis: function () {
-      return this.his.isFast ? Math.floor(this.his.timeOut / 2) : this.his.timeOut
+    max: function () {
+      return this.his.timeRange.length
     }
   },
   props: {
@@ -195,7 +195,7 @@ export default {
       this.reload_his()
     },
     'his.timeIndex' (nValue, oValue) {
-      if (this.his.timeIndex === this.his.timeRange.length) {
+      if (this.his.timeIndex >= this.his.timeRange.length) {
         this.finish()
       }
     }
@@ -381,8 +381,8 @@ export default {
         this.timer = setInterval(() => {
           var sjsj = that.his.timeRange[that.his.timeIndex]['SJSJ']
           that.loadHeatData_his(sjsj)
-          that.his.timeIndex = that.his.timeIndex + 1
-        }, this.timeOutHis)
+          that.his.timeIndex = that.his.timeIndex + this.step
+        }, this.his.timeOut)
       } else {
         this.$message('无可播放数据!')
       }
@@ -398,7 +398,11 @@ export default {
      * 快进
      */
     fast () {
-      this.his.isFast = !this.his.isFast
+      if (this.his.speed < 3) {
+        this.his.speed = this.his.speed + 1
+      } else {
+        this.his.speed = 0
+      }
       this.pause()
       this.play()
     },
@@ -409,12 +413,13 @@ export default {
       clearInterval(this.timer)
       this.his.isPlay = false
       this.his.timeIndex = 0
+      this.his.speed = 0
     },
     /**
      * 加载热力数据
      */
     loadHeatData_his (sjsj) {
-      // console.log('loadHeatData_his-' + sjsj)
+      console.log('loadHeatData_his-' + sjsj)
       var that = this
       this.$http.getData(config.baseUrl + config.service.ydpm.ydHisHeatData, {
         sjsj: sjsj
@@ -461,11 +466,19 @@ export default {
      * 样式函数
      */
     hisTabStyle ({row, column, rowIndex, columnIndex}) {
-      console.log('hisTabStyle:' + rowIndex + ',' + columnIndex)
+      // console.log('hisTabStyle:' + rowIndex + ',' + columnIndex)
       if (rowIndex < 10 && columnIndex === 3) {
         // 设置 - 排名前10位的‘累计里程’样式
         return 'color:#F56C6C'
       }
+    },
+    formatSliderTooltip (val) {
+      // console.log('formatSliderTooltip--:' + val)
+      return this.his.timeRange[val] ? new Date(this.his.timeRange[val]['SJSJ']).format('yyyy-MM-dd hh:mm:ss') : ''
+    },
+    playSliderTo (val) {
+      // console.log('playTo--:' + val)
+      this.his.timeIndex = val
     },
     /**
      * 布局计算
