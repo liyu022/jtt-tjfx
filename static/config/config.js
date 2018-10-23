@@ -1,6 +1,9 @@
 /* eslint-disable */
 var config = {
-  baseUrl: 'http://localhost:8813',
+  // 原始地址
+  // baseUrl: 'http://10.228.2.135:8813',
+  // 代理地址
+  baseUrl: 'http://10.228.2.135:8804/lwgl-statanalysis',
   mapParames: {
     sxLiving: {
       center: [109.19554267784362, 34.957311521091796],
@@ -64,7 +67,7 @@ var config = {
     ydpm: {
       ydList: '/ydpm/getYdList',
       ydHeatData: '/ydpm/getYdHeatData',
-      lineData: 'http://10.228.2.135:8810/road/findByLxdm',
+      lineData: 'http://10.228.2.135:8804/lwgl-cljg/road/findByLxdm',
       ydHisList: '/ydpm/getYdHisList',
       ydHisHeatData: '/ydpm/getYdHisHeatData'
     },
