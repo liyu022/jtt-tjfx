@@ -59,6 +59,8 @@ export default {
         interval: this.params.interval,
         carType: this.params.carType
       }, {}, function (data, msg) {
+        delete data.original_in
+        delete data.original_out
         // console.log(data)
         if (data) {
           var options = that.getOptFromData(data)
