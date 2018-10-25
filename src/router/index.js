@@ -9,6 +9,11 @@ import PbJtl from '@/components/jtll/ProvinceBoundJtl'
 import Hyfx from '@/components/Hyfx'
 import MainPeriod from '@/components/hyfx/MaintainPeriod'
 import NetorkEffect from '@/components/hyfx/NetWorkEffect'
+import CarHomePie from '@/components/hyfx/CarHomePie'
+import CaseReasonBar from '@/components/hyfx/CaseReasonBar'
+import CaseTypeBar from '@/components/hyfx/CaseTypeBar'
+import GoodsTypePie from '@/components/hyfx/GoodsTypePie'
+import Zhcx from '@/components/Zhcx'
 
 Vue.use(Router)
 
@@ -57,7 +62,38 @@ export default new Router({
         {
           path: '/hyfx/networkEffect',
           component: NetorkEffect
+        },
+        {
+          path: '/hyfx/carHomePie',
+          component: CarHomePie
+        },
+        {
+          path: '/hyfx/caseReasonBar',
+          component: CaseReasonBar
+        },
+        {
+          path: '/hyfx/caseTypeBar',
+          component: CaseTypeBar
+        },
+        {
+          path: '/hyfx/goodsTypePie',
+          component: GoodsTypePie
         }
+      ]
+    },
+    {
+      path: '/zhcx',
+      name: 'Zhcx',
+      component: Zhcx,
+      children: [
+        // {
+        //   path: '/hyfx/mainPeriod',
+        //   component: MainPeriod
+        // },
+        // {
+        //   path: '/hyfx/networkEffect',
+        //   component: NetorkEffect
+        // }
       ]
     }
   ]
