@@ -427,7 +427,7 @@ export default {
       // const clientHeight = document.documentElement.clientHeight
       const clientHeight = this.params_in.fullHeight
       this.height = clientHeight - 68
-      this.tableHeight = this.height - 400
+      this.tableHeight = this.height - 500
       // console.log('clientHeight-jtll:' + clientHeight)
     }
   }

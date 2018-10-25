@@ -14,6 +14,8 @@ import CaseReasonBar from '@/components/hyfx/CaseReasonBar'
 import CaseTypeBar from '@/components/hyfx/CaseTypeBar'
 import GoodsTypePie from '@/components/hyfx/GoodsTypePie'
 import Zhcx from '@/components/Zhcx'
+import LawInfoQuery from '@/components/Zhcx/LawInfoQuery'
+import PunishInfoQuery from '@/components/Zhcx/PunishInfoQuery'
 
 Vue.use(Router)
 
@@ -86,14 +88,14 @@ export default new Router({
       name: 'Zhcx',
       component: Zhcx,
       children: [
-        // {
-        //   path: '/hyfx/mainPeriod',
-        //   component: MainPeriod
-        // },
-        // {
-        //   path: '/hyfx/networkEffect',
-        //   component: NetorkEffect
-        // }
+        {
+          path: '/zhcx/lawInfoQuery',
+          component: LawInfoQuery
+        },
+        {
+          path: '/zhcx/punishInfoQuery',
+          component: PunishInfoQuery
+        }
       ]
     }
   ]

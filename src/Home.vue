@@ -33,7 +33,7 @@ export default {
   },
   created () {
   },
-  mounted() {
+  mounted () {
     const that = this
     window.onresize = () => {
       return (() => {
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     handleSelect (key, keyPath) {
-      //<router-view>组件的:key属性，用来在组件复用时也能刷新组件
+      // <router-view>组件的:key属性，用来在组件复用时也能刷新组件
       this.activeDate = new Date().getTime()
     }
   }
