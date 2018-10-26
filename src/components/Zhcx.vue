@@ -2,8 +2,7 @@
   <el-row style="height: 100%;padding: 3px;">
     <el-col :span="4">
       <el-card>
-        <el-menu :style="'height:'+ menu_height +'px;border-width:0px;'" router
-          default-active="/zhcx/lawInfoQuery"
+        <el-menu default-active="/zhcx/lawInfoQuery" router :style="'height:'+ menu_height +'px;border-width:0px;'"
           @select="handleSelect">
           <el-menu-item index="/zhcx/lawInfoQuery">
             <i class="el-icon-menu"></i>
@@ -30,6 +29,7 @@ export default {
   data () {
     return {
       activeDate: new Date().getTime(),
+      activeItem: '/zhcx/lawInfoQuery',
       height: 100,
       menu_height: 100,
       params: {
@@ -46,6 +46,7 @@ export default {
   },
   created () {
     this.setSize()
+    this.$router.push(this.activeItem)
   },
   mounted () {
   },

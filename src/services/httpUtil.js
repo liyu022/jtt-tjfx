@@ -138,7 +138,7 @@ function backView (response, callback) {
   if (response != null && (response.data.code === 1 || response.data.code === 200) && response.data.data != null) {
     // console.log('请求成功')
     if (callback != null) {
-      callback(response.data.data, null)
+      callback(response.data.data, response.data.total)
     }
   } else {
     // console.log('请求失败')
