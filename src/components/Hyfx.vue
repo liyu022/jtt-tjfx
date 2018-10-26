@@ -95,25 +95,80 @@
             <template slot="title" >
               <span class="itemTitle">路政执法统计</span>
             </template>
-            <el-collapse v-model="lzzfActiveItem" accordion>
-              <el-collapse-item title="执法案件类型统计" name="/hyfx/caseTypeBar">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-              </el-collapse-item>
-              <el-collapse-item title="涉案车辆归属地占比统计" name="/hyfx/carHomePie">
-                <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-              </el-collapse-item>
-              <el-collapse-item title="治超处罚案由统计" name="/hyfx/caseReasonBar">
-                <div>简化流程：设计简洁直观的操作流程；</div>
-                <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-              </el-collapse-item>
-              <el-collapse-item title="治超货物类型占比统计" name="/hyfx/goodsTypePie">
-                <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-              </el-collapse-item>
-            </el-collapse>
+            <el-card :body-style="{padding: '0px'}">
+              <div slot="header" class="clearfix">
+                <el-dropdown @command="handleCommand">
+                  <span class="el-dropdown-link">
+                    <i class="el-icon-menu"></i>&nbsp;{{lzzfActionItem}}<i class="el-icon-d-caret el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="执法案件类型统计">执法案件类型统计</el-dropdown-item>
+                    <el-dropdown-item command="涉案车辆归属地占比统计">涉案车辆归属地占比统计</el-dropdown-item>
+                    <el-dropdown-item command="治超处罚案由统计">治超处罚案由统计</el-dropdown-item>
+                    <el-dropdown-item command="治超货物类型占比统计">治超货物类型占比统计</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div>
+              <el-form v-if="lzzfActionItem == '执法案件类型统计'" :model="params" label-position="left" label-width="70px">
+                <el-form-item label="案件类型">
+                  <el-select v-model="params.ajlx" placeholder="请选择案件类型">
+                    <el-option label="全部" value="0"></el-option>
+                    <el-option label="一般" value="1"></el-option>
+                    <el-option label="简易" value="2"></el-option>
+                    <el-option label="非现场处理" value="3"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="统计模式">
+                  <el-select v-model="params.interval" placeholder="统计模式">
+                    <el-option label="按年" value="y"></el-option>
+                    <el-option label="按月" value="m"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="统计时间">
+                  <el-date-picker v-if="lzzfInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
+                  </el-date-picker>
+                  <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
+                  </el-date-picker>
+                </el-form-item>
+              </el-form>
+              <el-form v-if="lzzfActionItem == '涉案车辆归属地占比统计' || lzzfActionItem == '治超货物类型占比统计'" :model="params" label-position="left" label-width="70px">
+                <el-form-item label="统计模式">
+                  <el-select v-model="params.interval" placeholder="统计模式">
+                    <el-option label="按年" value="y"></el-option>
+                    <el-option label="按月" value="m"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="统计时间">
+                  <el-date-picker v-if="lzzfInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
+                  </el-date-picker>
+                  <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
+                  </el-date-picker>
+                </el-form-item>
+              </el-form>
+              <el-form v-if="lzzfActionItem == '治超处罚案由统计'" :model="params" label-position="left" label-width="70px">
+                <el-form-item label="案件类型">
+                  <el-select v-model="params.anyou" placeholder="请选择案件类型">
+                    <el-option label="全部" value="0"></el-option>
+                    <el-option label="违法超限运输" value="1"></el-option>
+                    <el-option label="扰乱超限监测秩序" value="2"></el-option>
+                    <el-option label="非法使用通行证" value="3"></el-option>
+                    <el-option label="逃避超限检测" value="4"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="统计模式">
+                  <el-select v-model="params.interval" placeholder="统计模式">
+                    <el-option label="按年" value="y"></el-option>
+                    <el-option label="按月" value="m"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="统计时间">
+                  <el-date-picker v-if="lzzfInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
+                  </el-date-picker>
+                  <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
+                  </el-date-picker>
+                </el-form-item>
+              </el-form>
+            </el-card>
           </el-collapse-item>
         </el-collapse>
       </el-card>
@@ -139,9 +194,14 @@ export default {
       params: {
         year: 'y',               //参数年
         closeable: '-1',        //是否关闭
-        lineData:[],             //拥堵线数据
+        lineData: [],             //拥堵线数据
         pointData: [],            //拥堵点数据
-        fullHeight:0
+        fullHeight: 0,
+        ajlx: '0',
+        anyou: '0',
+        interval: 'y',
+        dateYear: '',
+        dateMonth: ''
       },
       minChart: {
         chatObj: null,
@@ -149,7 +209,8 @@ export default {
         yhMile: 0                  //养护里程
       },
       minTable: [],                //拥堵数据
-      minCurrentRow: null         //拥堵表当前行
+      minCurrentRow: null,         //拥堵表当前行
+      lzzfActionItem: '执法案件类型统计'
     }
   },
   props: {
@@ -189,6 +250,9 @@ export default {
         });
       }
       return pointArr
+    },
+    lzzfInterval: function () {
+      return this.params.interval === 'y' ? 'year' : 'month'
     }
   },
   created () {
@@ -226,7 +290,6 @@ export default {
      * 切换菜单
      */
     changeItem (item) {
-      debugger
       if (item != null) {
         this.toRouter(item)
         if(item === '/hyfx/networkEffect'){
@@ -420,6 +483,10 @@ export default {
         this.params.pointData = row.data
       }
     },
+    handleCommand (command) {
+      this.$message('click on item ' + command)
+      this.lzzfActionItem = command
+    },
     /**
      * 布局计算
      */
@@ -492,8 +559,17 @@ export default {
     width: 100%;
     margin-top: 20px;
   }
-
   .el-table__body .el-table__expanded-cell {
     padding: 2px 5px;
+  }
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
+  .el-icon-arrow-down {
+    font-size: 15px;
+  }
+  .el-form {
+    padding: 15px;
   }
 </style>

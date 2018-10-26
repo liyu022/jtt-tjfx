@@ -229,8 +229,8 @@ export default {
         value: '1',
         label: '违法超限运输'
       }, {
-        value: '扰乱超限监测秩序',
-        label: '简易'
+        value: '2',
+        label: '扰乱超限监测秩序'
       }, {
         value: '3',
         label: '非法使用通行证'
