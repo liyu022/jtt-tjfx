@@ -3,22 +3,22 @@
     <div class="query-wrap">
       <el-form :inline="true" :model="parames" size="small">
         <el-row>
-          <el-col :span="4.5">
+          <el-col :span="5">
             <el-form-item label="车牌号码">
               <el-input v-model="parames.chepaihao" placeholder="车牌号码"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4.5">
+          <el-col :span="5">
             <el-form-item label="运输证号">
               <el-input v-model="parames.daoluyunzh" placeholder="道路运输证号"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4.5">
+          <el-col :span="5">
             <el-form-item label="决定书号">
               <el-input v-model="parames.chufashuhao" placeholder="处罚决定书编号"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4.5">
+          <el-col :span="5">
             <el-form-item label="案由">
               <el-select v-model="parames.anyou" placeholder="案由">
                 <el-option
@@ -32,12 +32,12 @@
           </el-col>
         </el-row>
         <el-row type="flex">
-          <el-col :span="4.5">
+          <el-col :span="5">
             <el-form-item label="货物名称">
               <el-input v-model="parames.huowumingc" placeholder="货物名称"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="9">
+          <el-col :span="10">
             <el-form-item label="处罚日期">
               <el-date-picker
                               v-model="dateRange"
@@ -52,9 +52,9 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="4" style="text-align: left;">
-            <el-button icon="el-icon-search" size="small"  @click="getList">检索</el-button>
-            <el-button icon="el-icon-printer" size="small"  @click="clearParames">清除</el-button>
+          <el-col :span="5" style="text-align: left;">
+            <el-button icon="el-icon-search" size="small" @click="getList" style="margin-left: 40px;">检索</el-button>
+            <el-button icon="el-icon-close" size="small" @click="clearParames">清除</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -73,6 +73,7 @@
             :max-height="tableHeight">
             <el-table-column
               prop="ROW_ID"
+              fixed
               label="序号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
@@ -287,7 +288,7 @@ export default {
         begintime: '',
         endtime: '',
         pageNum: 1,
-        pageSize: 10
+        pageSize: 20
       },
       loading: false,
       tableDataTotal: 1000,

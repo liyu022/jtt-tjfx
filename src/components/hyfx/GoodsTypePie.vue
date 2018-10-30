@@ -72,7 +72,7 @@ export default {
             legend: {
               orient: 'vertical',
               x: 'right',
-              y: 'bottom',
+              y: 'center',
               data: data.legend
             },
             toolbox: {

@@ -5,7 +5,7 @@
         <el-menu default-active="/zhcx/lawInfoQuery" router :style="'height:'+ menu_height +'px;border-width:0px;'"
           @select="handleSelect">
           <el-menu-item index="/zhcx/lawInfoQuery">
-            <i class="el-icon-menu"></i>
+            <i class="el-icon-setting"></i>
             <span slot="title">路政执法信息查询</span>
           </el-menu-item>
           <el-menu-item index="/zhcx/punishInfoQuery">

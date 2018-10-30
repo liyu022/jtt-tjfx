@@ -3,17 +3,17 @@
     <div class="query-wrap">
       <el-form :inline="true" :model="parames" size="small">
       <el-row>
-        <el-col :span="4.5">
+        <el-col :span="5">
           <el-form-item label="案件编号">
             <el-input v-model="parames.ajbh" placeholder="案件编号"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="4.5">
+        <el-col :span="5">
           <el-form-item label="案件名称">
             <el-input v-model="parames.ajmc" placeholder="案件名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="4.5">
+        <el-col :span="5">
           <el-form-item label="案件类型">
             <el-select v-model="parames.ajlx" placeholder="案件类型">
               <el-option
@@ -25,21 +25,21 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="4.5">
+        <el-col :span="5">
           <el-form-item label="涉案车牌">
             <el-input v-model="parames.ajclzcph" placeholder="涉案车牌"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row type="flex">
-        <el-col :span="4.5">
+        <el-col :span="5">
           <el-form-item label="执法机构">
             <el-input v-model="parames.zfjgmc" placeholder="执法机构名称"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8.5">
+        <el-col :span="10">
           <el-form-item label="处理日期">
-            <el-date-picker style="width: 493px;"
+            <el-date-picker
               v-model="dateRange"
               type="datetimerange"
               align="right"
@@ -52,9 +52,9 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="4" style="text-align: left;">
-          <el-button icon="el-icon-search" size="small" @click="getList">检索</el-button>
-          <el-button icon="el-icon-printer" size="small" @click="clearParames">清除</el-button>
+        <el-col :span="5" style="text-align:left;">
+          <el-button icon="el-icon-search" size="small" @click="getList" style="margin-left: 68px;">检索</el-button>
+          <el-button icon="el-icon-close" size="small" @click="clearParames">清除</el-button>
         </el-col>
       </el-row>
       </el-form>
@@ -73,6 +73,7 @@
             :max-height="tableHeight">
             <el-table-column
               prop="ROW_ID"
+              fixed
               label="序号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
@@ -228,7 +229,7 @@ export default {
         begintime: '',
         endtime: '',
         pageNum: 1,
-        pageSize: 10
+        pageSize: 20
       },
       loading: false,
       tableDataTotal: 1000,
@@ -327,7 +328,7 @@ export default {
      */
     setSize () {
       const clientHeight = this.params.fullHeight === 0 ? document.documentElement.clientHeight : this.params.fullHeight
-      this.tableHeight = clientHeight - 250
+      this.tableHeight = clientHeight - 200
       console.log('this.tableHeight:' + clientHeight)
     }
   },
