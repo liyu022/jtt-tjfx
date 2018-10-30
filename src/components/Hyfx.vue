@@ -184,18 +184,24 @@
 <script>
   // import logger from "../../services/logger"
 export default {
-  name: "Hyfx",
+  name: 'Hyfx',
   data () {
     return {
-      activeItem: "/hyfx/mainPeriod",
+      activeItem: '/hyfx/mainPeriod',
       lzzfActiveItem: '1',
-      height: 100,               //内容区高度
-      tableHeight: 700,         //表格高度
+      // 内容区高度
+      height: 100,
+      // 表格高度
+      tableHeight: 700,
       params: {
-        year: 'y',               //参数年
-        closeable: '-1',        //是否关闭
-        lineData: [],             //拥堵线数据
-        pointData: [],            //拥堵点数据
+        // 参数年
+        year: 'y',
+        // 是否关闭
+        closeable: '-1',
+        // 拥堵线数据
+        lineData: [],
+        // 拥堵点数据
+        pointData: [],
         fullHeight: 0,
         ajlx: '0',
         anyou: '0',
@@ -205,49 +211,53 @@ export default {
       },
       minChart: {
         chatObj: null,
-        yhTimes: 0,                //养护起数
-        yhMile: 0                  //养护里程
+        // 养护起数
+        yhTimes: 0,
+        // 养护里程
+        yhMile: 0
       },
-      minTable: [],                //拥堵数据
-      minCurrentRow: null,         //拥堵表当前行
+      // 拥堵数据
+      minTable: [],
+      // 拥堵表当前行
+      minCurrentRow: null,
       lzzfActionItem: '执法案件类型统计'
     }
   },
   props: {
     params_in: {
-      fullHeight:0
+      fullHeight: 0
     }
   },
   computed: {
-    //拥堵线
-    clusterLine: function(){
+    // 拥堵线
+    clusterLine: function () {
       let lineArr = []
-      if(this.minTable) {
+      if (this.minTable) {
         this.minTable.forEach((item, index) => {
-          if(item.geometry){
+          if (item.geometry) {
             lineArr.push({
               geometry: item.geometry,
-              geometryType:item.geometryType
+              geometryType: item.geometryType
             })
           }
-        });
+        })
       }
       return lineArr
     },
-    //拥堵点
-    clusterPoint: function(){
+    // 拥堵点
+    clusterPoint: function () {
       let pointArr = []
-      if(this.minTable) {
+      if (this.minTable) {
         this.minTable.forEach((item, index) => {
-          if(item.data){
-            let cnt = item.data.length;
+          if (item.data) {
+            let cnt = item.data.length
             pointArr.push({
               id: item.id,
-              geometry:item.data[parseInt(cnt/2)]['centerPoint'],
+              geometry: item.data[parseInt(cnt / 2)]['centerPoint'],
               geometryType: 'Point'
             })
           }
-        });
+        })
       }
       return pointArr
     },
@@ -277,6 +287,9 @@ export default {
      */
     init () {
       this.params.year = new Date().getFullYear().toString()
+      this.params.dateYear = new Date().getFullYear().toString()
+      const month = new Date().getMonth() + 1
+      this.params.dateMonth = new Date().getFullYear().toString() + (month < 10 ? '0' + month.toString() : month.toString())
     },
 
     /**
@@ -292,7 +305,7 @@ export default {
     changeItem (item) {
       if (item != null) {
         this.toRouter(item)
-        if(item === '/hyfx/networkEffect'){
+        if (item === '/hyfx/networkEffect'){
           this.loadMinChartData()
           this.loadMinTableData()
         }
@@ -454,17 +467,19 @@ export default {
     /**
      *  展开/收起行
      */
-    minTabExpandChange (row, expandedRows){
-      if(expandedRows.length == 0){
-        //收起时-展示拥堵点
-        this.params.pointType = 0   //拥堵点
+    minTabExpandChange (row, expandedRows) {
+      if (expandedRows.length === 0) {
+        // 收起时-展示拥堵点
+        // 拥堵点
+        this.params.pointType = 0
         this.params.pointData = this.clusterPoint
-      }else {
-        //展开多条记录时，收回早先的记录，然后展示养护点
-        if(expandedRows.length > 1){
+      } else {
+        // 展开多条记录时，收回早先的记录，然后展示养护点
+        if (expandedRows.length > 1) {
           this.$refs.minTable.toggleRowExpansion(expandedRows[0],false)
         }
-        this.params.pointType = 1    //养护点
+        // 养护点
+        this.params.pointType = 1
         this.params.pointData = row.data
       }
     },
@@ -472,20 +487,33 @@ export default {
      *  行选中处
      */
     minTabRowClick (row, event, column) {
-      if(row == this.minCurrentRow) {
+      if (row === this.minCurrentRow) {
         this.minCurrentRow = null
-        this.$refs.minTable.setCurrentRow(this.minCurrentRow = null)  //取消表格选中
-        this.params.pointType = 0   //拥堵点
+        // 取消表格选中
+        this.$refs.minTable.setCurrentRow(this.minCurrentRow = null)
+        // 拥堵点
+        this.params.pointType = 0
         this.params.pointData = this.clusterPoint
-      }else {
+      } else {
         this.minCurrentRow = row
-        this.params.pointType = 1     //养护点
+        // 养护点
+        this.params.pointType = 1
         this.params.pointData = row.data
       }
     },
     handleCommand (command) {
-      this.$message('click on item ' + command)
+      // debugger
+      // this.$message('click on item ' + command)
       this.lzzfActionItem = command
+      if (this.lzzfActionItem === '执法案件类型统计') {
+        this.toRouter('/hyfx/caseTypeBar')
+      } else if (this.lzzfActionItem === '涉案车辆归属地占比统计') {
+        this.toRouter('/hyfx/carHomePie')
+      } else if (this.lzzfActionItem === '治超处罚案由统计') {
+        this.toRouter('/hyfx/caseReasonBar')
+      } else if (this.lzzfActionItem === '治超货物类型占比统计') {
+        this.toRouter('/hyfx/goodsTypePie')
+      }
     },
     /**
      * 布局计算

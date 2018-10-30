@@ -9,12 +9,12 @@
             </el-form-item>
           </el-col>
           <el-col :span="4.5">
-            <el-form-item label="道运证号">
+            <el-form-item label="运输证号">
               <el-input v-model="parames.daoluyunzh" placeholder="道路运输证号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4.5">
-            <el-form-item label="处定书号">
+            <el-form-item label="决定书号">
               <el-input v-model="parames.chufashuhao" placeholder="处罚决定书编号"></el-input>
             </el-form-item>
           </el-col>
@@ -38,7 +38,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="9">
-            <el-form-item label="处理时间">
+            <el-form-item label="处罚日期">
               <el-date-picker
                               v-model="dateRange"
                               type="datetimerange"
@@ -54,7 +54,7 @@
           </el-col>
           <el-col :span="4" style="text-align: left;">
             <el-button icon="el-icon-search" size="small"  @click="getList">检索</el-button>
-            <el-button icon="el-icon-printer" size="small"  @click="expList">导出</el-button>
+            <el-button icon="el-icon-printer" size="small"  @click="clearParames">清除</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -344,13 +344,15 @@ export default {
       this.setSize()
     },
     dateRange (nValue, oValue) {
-      debugger
-      let sdate = this.dateRange[0]
-      let edate = this.dateRange[1]
-      this.parames.begintime = sdate.format('yyyy-MM-dd hh:mm:ss')
-      this.parames.endtime = edate.format('yyyy-MM-dd hh:mm:ss')
-      // this.parames.begintime = sdate.getFullYear() + '-' + (sdate.getMonth() + 1) + '-' + sdate.getDate()
-      // this.parames.endtime = edate.getFullYear() + '-' + (edate.getMonth() + 1) + '-' + edate.getDate()
+      if (this.dateRange.length === 2) {
+        let sdate = this.dateRange[0]
+        let edate = this.dateRange[1]
+        this.parames.begintime = sdate.format('yyyy-MM-dd hh:mm:ss')
+        this.parames.endtime = edate.format('yyyy-MM-dd hh:mm:ss')
+      } else {
+        this.parames.begintime = ''
+        this.parames.endtime = ''
+      }
     }
   },
   created () {
@@ -376,8 +378,14 @@ export default {
         that.loading = false
       })
     },
-    expList () {
+    clearParames () {
       console.log('导出数据1')
+      this.parames.chepaihao = ''
+      this.parames.daoluyunzh = ''
+      this.parames.chufashuhao = ''
+      this.parames.anyou = ''
+      this.parames.huowumingc = ''
+      this.dateRange = []
     },
     handleSizeChange (val) {
       console.log('每页: ' + val + '条')

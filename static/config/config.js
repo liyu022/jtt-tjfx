@@ -93,6 +93,20 @@ var config = {
         minChart: 'http://10.228.2.135:8804/lwgl-yxjc/block/chart/mainplan',
         minTable: '/hyfx/NetWorkEffect'
         // minTable: 'http://localhost:8080/api/netWorkEffect'
+      },
+      lzzfStatics: {
+        caseType: {
+          chartData: '/hyfx/lawEngorcementCaseStatistics'
+        },
+        carHome: {
+          chartData: '/hyfx/involveCarAttachStatistics'
+        },
+        caseReason: {
+          chartData: '/hyfx/overRunPunishCaseStatistics'
+        },
+        goodsType: {
+          chartData: '/hyfx/overRunPunishTypeStatistics'
+        },
       }
     },
     zhcx: {
