@@ -127,7 +127,7 @@
                 <el-form-item label="统计时间">
                   <el-date-picker v-if="lzzfInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                   </el-date-picker>
-                  <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
+                  <el-date-picker v-else type="month" value-format="yyyy-MM" placeholder="统计时间" v-model="params.dateMonth">
                   </el-date-picker>
                 </el-form-item>
               </el-form>
@@ -141,7 +141,7 @@
                 <el-form-item label="统计时间">
                   <el-date-picker v-if="lzzfInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                   </el-date-picker>
-                  <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
+                  <el-date-picker v-else type="month" value-format="yyyy-MM" placeholder="统计时间" v-model="params.dateMonth">
                   </el-date-picker>
                 </el-form-item>
               </el-form>
@@ -164,7 +164,7 @@
                 <el-form-item label="统计时间">
                   <el-date-picker v-if="lzzfInterval == 'year'" type="year" value-format="yyyy" placeholder="统计时间" v-model="params.dateYear">
                   </el-date-picker>
-                  <el-date-picker v-else type="month" value-format="yyyyMM" placeholder="统计时间" v-model="params.dateMonth">
+                  <el-date-picker v-else type="month" value-format="yyyy-MM" placeholder="统计时间" v-model="params.dateMonth">
                   </el-date-picker>
                 </el-form-item>
               </el-form>

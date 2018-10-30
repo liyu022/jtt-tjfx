@@ -73,76 +73,76 @@
             :max-height="tableHeight">
             <el-table-column
               prop="ROW_ID"
-              label="序号">
+              label="序号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJBH"
-              label="案件编号" width="200">
+              label="案件编号" width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJMC"
-              label="案件名称"  width="200">
+              label="案件名称"  width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CLJD"
-              label="案件处理进度"  width="200">
+              label="案件处理进度"  width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJCLR"
-              label="案件处理人">
+              label="案件处理人" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="WFNR"
               label="违法内容"
-              width="1200">
+              width="1200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="WFSJ"
-              label="违法时间" width="200">
+              label="违法时间" width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJCLDD"
-              label="案件处理地点"  width="200">
+              label="案件处理地点"  width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJLX"
-              label="案件类型" width="100">
+              label="案件类型" width="100" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJCLZCPH"
-              label="案件处理中车牌号" width="200">
+              label="案件处理中车牌号" width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJCLRQ"
-              label="案件处理日期" width="200">
+              label="案件处理日期" width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="AJCLYY"
-              label="案件处理原因">
+              label="案件处理原因" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZFRSZDW"
-              label="执法人员所在单位" width="150">
+              label="执法人员所在单位" width="150" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZFJGMC"
-              label="执法机构名称"  width="150">
+              label="执法机构名称"  width="150" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZXQK"
-              label="执行情况" width="100">
+              label="执行情况" width="100" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZFRXM"
-              label="执法人姓名">
+              label="执法人姓名" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZFRZJH"
-              label="执法人证件号" width="150">
+              label="执法人证件号" width="150" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZFRXM1"
-              label="受理人">
+              label="受理人" header-align="center" align="center">
             </el-table-column>
           </el-table>
         </el-col>

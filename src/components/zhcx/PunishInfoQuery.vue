@@ -73,132 +73,132 @@
             :max-height="tableHeight">
             <el-table-column
               prop="ROW_ID"
-              label="序号">
+              label="序号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHEPAIHAO"
-              label="车牌号码" width="150">
+              label="车牌号码" width="150" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="DAOLUYUNZH"
-              label="道路运输证号" width="250">
+              label="道路运输证号" width="250" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZHIFAYIJU"
-              label="执法依据" width="300">
+              label="执法依据" width="300" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ANYOU"
-              label="案由" width="150">
+              label="案由" width="150" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHENGYUNRENADDRESS"
               label="承运人地址"
-              width="350">
+              width="350" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHENGYUNREN"
-              label="承运人名称" width="300">
+              label="承运人名称" width="300" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="SHIFOUFEIFAGAIZHANG"
-              label="是否非法改装">
+              label="是否非法改装" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="GAIZHUANGSHUOM"
-              label="非法改装说明">
+              label="非法改装说明" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="SHIFOUBIAOZHUNCHE"
-              label="是否非标准车辆">
+              label="是否非标准车辆" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="JIASHIZHENG"
-              label="驾驶证号">
+              label="驾驶证号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CONGYEZIGEZHENG"
-              label="从业人员资格证号"  width="200">
+              label="从业人员资格证号"  width="200" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="FARENDAIBIAO"
-              label="法人代表" width="250">
+              label="法人代表" width="250" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="FARENIDCARD"
-              label="法人身份证号">
+              label="法人身份证号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="SIJIXINGM"
-              label="司机姓名">
+              label="司机姓名" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="SIJIDIANHUA"
-              label="司机电话"  width="150">
+              label="司机电话"  width="150" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="HUOZHUXINGM"
-              label="货主姓名"  width="300">
+              label="货主姓名"  width="300" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="HUOZHUFAREN"
-              label="货主法人" width="250">
+              label="货主法人" width="250" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="HUOWUDAIMA"
-              label="货物代码">
+              label="货物代码" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="HUOWUMINGC"
-              label="货物名称">
+              label="货物名称" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZHUANGHUODIZHI"
-              label="装货地址">
+              label="装货地址" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHUFADI"
-              label="出发地">
+              label="出发地" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="MUDIDI"
-              label="目的地">
+              label="目的地" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="SHIFOUXIANHUOPIN"
-              label="是否鲜活农产品">
+              label="是否鲜活农产品" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="JIANCEDANHAO"
-              label="检测单号">
+              label="检测单号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHUFADANHAO"
-              label="处罚单号">
+              label="处罚单号" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHUFASHUHAO"
-              label="处罚书号" width="280">
+              label="处罚书号" width="280" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHUFARIQI"
-              label="处罚日期"  width="180">
+              label="处罚日期"  width="180" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="CHUFAJINE"
-              label="罚款金额">
+              label="罚款金额" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="PEICHANGJINE"
-              label="赔偿金额">
+              label="赔偿金额" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZHIFAREN"
-              label="执法人">
+              label="执法人" header-align="center" align="center">
             </el-table-column>
             <el-table-column
               prop="ZFRZJH"
-              label="执法人证件号码"  width="200">
+              label="执法人证件号码"  width="200" header-align="center" align="center">
             </el-table-column>
           </el-table>
         </el-col>
