@@ -3,7 +3,7 @@ var config = {
   // 原始地址
   // baseUrl: 'http://10.228.2.135:8813',
   // 代理地址
-  baseUrl: 'http://localhost:8804/lwgl-statanalysis',
+  baseUrl: 'http://10.228.2.135:8804/lwgl-statanalysis',
   mapParames: {
     sxLiving: {
       center: [109.19554267784362, 34.957311521091796],

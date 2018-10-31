@@ -328,7 +328,7 @@ export default {
      */
     setSize () {
       const clientHeight = this.params.fullHeight === 0 ? document.documentElement.clientHeight : this.params.fullHeight
-      this.tableHeight = clientHeight - 200
+      this.tableHeight = clientHeight - 220
       console.log('this.tableHeight:' + clientHeight)
     }
   },
