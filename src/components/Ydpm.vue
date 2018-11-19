@@ -297,7 +297,8 @@ export default {
             max: 1,
             splitNumber: 5,
             inRange: {
-              color: ['#f00', '#0f0', '#00f'].reverse()
+              // color: ['#f00', '#0f0', '#00f'].reverse()
+              color: ['#f00', '#eac736', '#50a3ba'].reverse()
             },
             textStyle: {
               color: '#5fa0ff'
@@ -444,7 +445,7 @@ export default {
             splitNumber: 5,
             inRange: {
               // color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
-              color: ['#f00', '#0f0', '#00f'].reverse()
+              color: ['#f00', '#eac736', '#50a3ba'].reverse()
             },
             textStyle: {
               color: '#5fa0ff'
