@@ -94,7 +94,7 @@ export default {
   data () {
     return {
       timer: null,
-      timeOut: 1000 * 60 * 10,
+      timeOut: 1000 * 60 * 5,
       // timeOut: 1000 * 2,
       title: '拥堵排名',
       tableHeight: 100,
