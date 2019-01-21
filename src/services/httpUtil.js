@@ -140,6 +140,10 @@ function backView (response, callback) {
     if (callback != null) {
       callback(response.data.data, response.data.total)
     }
+  } else if (response != null && response.data.features != null) {
+    if (callback != null) {
+      callback(response.data.features, response.data.allCount)
+    }
   } else {
     // console.log('请求失败')
     if (callback != null) {

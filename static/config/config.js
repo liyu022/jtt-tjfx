@@ -67,7 +67,8 @@ var config = {
     ydpm: {
       ydList: '/ydpm/getYdList',
       ydHeatData: '/ydpm/getYdHeatData',
-      lineData: 'http://10.228.2.135:8804/lwgl-cljg/road/findByLxdm',
+      lineData: '/road/findByLxdm',
+      // lineData: 'http://10.228.2.72:8080/mapdata/rest/mapdata/search',
       ydHisList: '/ydpm/getYdHisList',
       ydHisHeatData: '/ydpm/getYdHisHeatData'
     },
