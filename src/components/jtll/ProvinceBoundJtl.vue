@@ -61,7 +61,7 @@ export default {
       }, {}, function (data, msg) {
         delete data.original_in
         delete data.original_out
-        // console.log(data)
+        delete data.lastDataTime
         if (data) {
           var options = that.getOptFromData(data)
           that.chartLayer = new ol3Echarts(options)
@@ -203,7 +203,6 @@ export default {
     },
 
     convertData_sx (data) {
-      // debugger
       var res = []
       for (var i = 0; i < data.length; i++) {
         var dataItem = data[i]
