@@ -322,17 +322,7 @@ export default {
      */
     loadLine (lxbm) {
       var that = this
-      let params = {
-        layerName: 'TRAFFIC_NETWORK_WGS',
-        // where: 'LXBM=\'G3001\'',
-        where: ' lxbm = ' + '\'' + lxbm + '\'',
-        taskName: 'search',
-        geoFormatType: 1,
-        dataFormatType: 1,
-        spatialRel: 'Intersects'
-      }
-      // this.$http.getData(config.service.ydpm.lineData, params, {}, function (data, msg) {
-      this.$http.getData(config.service.ydpm.lineData, {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
+      this.$http.getData(config.baseUrl + config.service.ydpm.lineData, {lxdm: lxbm}, {distcode: '610000'}, function (data, msg) {
         that.lineLayer = {
           data: data,
           parames: {
