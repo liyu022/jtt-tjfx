@@ -6,6 +6,7 @@ import ProvinceJtl from '@/components/jtll/ProvinceJtl'
 import CityJtl from '@/components/jtll/CityJtl'
 import DmJtl from '@/components/jtll/DmJtl'
 import PbJtl from '@/components/jtll/ProvinceBoundJtl'
+import qgJtlCount from '@/components/jtll/qgJtlCount'
 import Hyfx from '@/components/Hyfx'
 import MainPeriod from '@/components/hyfx/MaintainPeriod'
 import NetorkEffect from '@/components/hyfx/NetWorkEffect'
@@ -16,6 +17,7 @@ import GoodsTypePie from '@/components/hyfx/GoodsTypePie'
 import Zhcx from '@/components/Zhcx'
 import LawInfoQuery from '@/components/Zhcx/LawInfoQuery'
 import PunishInfoQuery from '@/components/Zhcx/PunishInfoQuery'
+import ExportData from '@/components/Zhcx/ExportData'
 
 Vue.use(Router)
 
@@ -49,6 +51,10 @@ export default new Router({
         {
           path: '/jtll/pbJtl',
           component: PbJtl
+        },
+        {
+          path: '/jtll/qgJtlCount',
+          component: qgJtlCount
         }
       ]
     },
@@ -95,6 +101,10 @@ export default new Router({
         {
           path: '/zhcx/punishInfoQuery',
           component: PunishInfoQuery
+        },
+        {
+          path: '/zhcx/ExportData',
+          component: ExportData
         }
       ]
     }

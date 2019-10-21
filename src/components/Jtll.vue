@@ -114,6 +114,21 @@
               </el-form-item>
             </el-form>
           </el-collapse-item>
+          <el-collapse-item name="/jtll/qgJtlCount">
+            <template slot="title" >
+              <span class="itemTitle">全国在线车辆统计</span>
+            </template>
+            <el-form :model="params" label-position="left" label-width="80px">
+              <el-form-item label="起始时间">
+                <el-date-picker type="datetime" size="small" value-format="yyyy-MM-dd HH:mm:ss" placeholder="起始时间" v-model="params.beginTime">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item label="截至时间">
+                <el-date-picker type="datetime" size="small" value-format="yyyy-MM-dd HH:mm:ss" placeholder="截至时间" v-model="params.endTime">
+                </el-date-picker>
+              </el-form-item>
+            </el-form>
+          </el-collapse-item>
         </el-collapse>
       </el-card>
     </el-col>
@@ -138,13 +153,15 @@ export default {
         dateYear: '',
         dateMonth: '',
         direction: 'a',
-        fullHeight: 0
+        fullHeight: 0,
+        beginTime: '',
+        endTime: ''
       }
     }
   },
   props: {
     params_in: {
-      fullHeight: 0
+      fullHeight: 0,
     }
   },
   mounted () {

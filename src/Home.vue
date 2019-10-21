@@ -8,7 +8,7 @@
              <el-menu-item index="/ydpm"><div class="menu">路况分析</div></el-menu-item>
              <el-menu-item index="/jtll"><div class="menu">交通量</div></el-menu-item>
              <el-menu-item index="/hyfx"><div class="menu">行业分析</div></el-menu-item>
-             <el-menu-item index="/zhcx"><div class="menu">综合查询</div></el-menu-item>
+             <el-menu-item index="/zhcx"><div class="menu">综合管理</div></el-menu-item>
            </el-menu>
          </el-col>
       </el-row>

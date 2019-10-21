@@ -12,6 +12,10 @@
             <i class="el-icon-setting"></i>
             <span slot="title">治超处罚信息查询</span>
           </el-menu-item>
+          <el-menu-item index="/zhcx/ExportData">
+            <i class="el-icon-setting"></i>
+            <span slot="title">数据导出</span>
+          </el-menu-item>
         </el-menu>
       </el-card>
     </el-col>
